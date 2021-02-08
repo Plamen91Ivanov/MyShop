@@ -1,15 +1,15 @@
-﻿<form>
+﻿<form method="post" enctype="multipart/form-data" asp-controller="Create" asp-action="Create">
     <div class="form-group">
         <label for="exampleFormControlInput1">Product Name</label>
-        <input type="text" class="form-control" placeholder="Product name">
+        <input type="text" name="Name" class="form-control" placeholder="Product name">
     </div>
     <div class="form-group">
         <label for="exampleFormControlInput1">Price</label>
-        <input type="number" class="form-control" placeholder="Price">
+        <input type="number" name="Price" class="form-control" placeholder="Price">
     </div>
     <div class="form-group">
         <label for="exampleFormControlSelect1">Region</label>
-        <select class="form-control" id="exampleFormControlSelect1">
+        <select class="form-control" id="exampleFormControlSelect1" name="Location">
             <option>София</option>
             <option>Пловдив</option>
             <option>Варна</option>
@@ -19,10 +19,12 @@
     </div>
     <div class="form-group">
         <label for="exampleFormControlTextarea1">Description</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <textarea class="form-control" name="Description" id="exampleFormControlTextarea1" rows="3"></textarea>
     </div>
     <div class="form-group">
         <label for="exampleFormControlFile1">Image</label>
-        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        <input type="file" name="images" multiple />
     </div>
+    <button type="submit" class="btn btn-success btn-lg">Create</button>
 </form>
+ 

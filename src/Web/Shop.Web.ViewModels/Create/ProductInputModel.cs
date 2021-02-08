@@ -13,7 +13,6 @@ namespace Shop.Web.ViewModels.Create
         public decimal Price { get; set; }
 
         public string Location { get; set; }
-
-        public string Image { get; set; }
+         
     }
 }

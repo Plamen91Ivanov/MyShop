@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Shop.Data.Models;
 using Shop.Services.Data;
 using Shop.Web.ViewModels.Create;
 using System;
@@ -11,10 +15,13 @@ namespace Shop.Web.Controllers
     public class CreateController : BaseController
     {
         private readonly IProductCreateService product;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CreateController(IProductCreateService product)
+        public CreateController(IProductCreateService product,
+                                UserManager<ApplicationUser> userManager)
         {
             this.product = product;
+            this.userManager = userManager;
         }
 
         public IActionResult ProductCreate()
@@ -23,17 +30,30 @@ namespace Shop.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ProductInputModel productInputModel)
+        [Authorize]
+        public async Task<IActionResult> CreateAsync(ProductInputModel productInputModel, ICollection<IFormFile> images)
         {
+            var user = await this.userManager.GetUserAsync(this.User);
+
             var createProduct =
-                this.product.Create(
+                await this.product.CreateAsync(
                     productInputModel.Name,
                     productInputModel.Description,
                     productInputModel.Price,
                     productInputModel.Location,
-                    productInputModel.Image);
+                    user.Id
+                    );
 
-            return Redirect
+            return this.RedirectToAction("ProductCreate");
         }
+
+        //[HttpPost]
+        //[Authorize]
+        //public async Task<IActionResult> CreateImage(string test)
+        //{ 
+        //    var addImage = await this.product.CreateImage(test, 1);
+
+        //    return this.RedirectToAction("ProductCreate");
+        //}
     }
 }
