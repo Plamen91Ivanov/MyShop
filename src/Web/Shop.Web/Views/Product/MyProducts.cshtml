@@ -1,0 +1,6 @@
+﻿@model Shop.Web.ViewModels.Create.ProductsInputModel
+
+@foreach (var product in Model.Products)
+{
+    <a href="@product.Url"><h1>@product.Name</h1></a>
+} 

@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Data.Models;
 using Shop.Services.Data;
+using Shop.Web.CloudinaryHelper;
 using Shop.Web.ViewModels.Create;
 using System;
 using System.Collections.Generic;
@@ -16,12 +19,15 @@ namespace Shop.Web.Controllers
     {
         private readonly IProductCreateService product;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly Cloudinary cloudinary;
 
         public CreateController(IProductCreateService product,
-                                UserManager<ApplicationUser> userManager)
+                                UserManager<ApplicationUser> userManager,
+                                Cloudinary cloudinary)
         {
             this.product = product;
             this.userManager = userManager;
+            this.cloudinary = cloudinary;
         }
 
         public IActionResult ProductCreate()
@@ -44,16 +50,25 @@ namespace Shop.Web.Controllers
                     user.Id
                     );
 
-            return this.RedirectToAction("ProductCreate");
+            var img = await this.product.CreateImage(images, createProduct);
+           // await CloudinaryExtension.UploadAsync(this.cloudinary, images);
+
+            return this.RedirectToAction("Product", new {id = createProduct});
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //public async Task<IActionResult> CreateImage(string test)
-        //{ 
-        //    var addImage = await this.product.CreateImage(test, 1);
+        public IActionResult Product(int id)
+        {
+            var productViewModel = this.product.GetById<ProductInputModel>(id);
+            return this.View(productViewModel);
+        }
 
-        //    return this.RedirectToAction("ProductCreate");
-        //}
+
+        [HttpPost]
+        public async Task<IActionResult> Upload(ICollection<IFormFile> files)
+        {
+            await CloudinaryExtension.UploadAsync(this.cloudinary, files);
+
+            return Redirect("/");
+        }
     }
 }

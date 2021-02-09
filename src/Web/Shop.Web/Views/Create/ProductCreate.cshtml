@@ -27,4 +27,10 @@
     </div>
     <button type="submit" class="btn btn-success btn-lg">Create</button>
 </form>
- 
+<form method="post" enctype="multipart/form-data" asp-controller="Create" asp-action="Upload">
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Image</label>
+        <input type="file" name="files" multiple />
+    </div>
+    <button type="submit" class="btn btn-success btn-lg">Create</button>
+</form>

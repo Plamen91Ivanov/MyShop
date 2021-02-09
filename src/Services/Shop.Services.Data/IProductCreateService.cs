@@ -11,5 +11,11 @@ namespace Shop.Services.Data
         Task<int> CreateAsync(string name, string description, decimal price, string location, string userId);
 
         Task<int> CreateImage(ICollection<IFormFile> images, int id);
+
+        T GetById<T>(int id);
+
+        T GetByName<T>(string name);
+
+        IEnumerable<T> GetUserProducts<T>(string userId);
     }
 }

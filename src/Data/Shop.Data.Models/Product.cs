@@ -8,7 +8,7 @@ namespace Shop.Data.Models
     {
         public Product()
         {
-            this.Images = new HashSet<ProductImage>();
+            this.Images = new HashSet<ImageProduct>();
         }
 
         public string UserId { get; set; }
@@ -23,6 +23,6 @@ namespace Shop.Data.Models
 
         public string Location { get; set; }
 
-        public virtual ICollection<ProductImage> Images { get; set; }
+        public virtual ICollection<ImageProduct> Images { get; set; }
     }
 }
