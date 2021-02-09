@@ -5,12 +5,25 @@
     using Shop.Web.ViewModels;
 
     using Microsoft.AspNetCore.Mvc;
+    using Shop.Services.Data;
+    using Shop.Web.ViewModels.Create;
 
     public class HomeController : BaseController
     {
+        private readonly IProductCreateService product;
+
+        public HomeController(IProductCreateService product)
+        {
+            this.product = product;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var products = new ProductsInputModel()
+            {
+                Products = this.product.GetAllPromotedProducts<ProductInputModel>(),
+            };
+            return this.View(products);
         }
 
         public IActionResult Privacy()

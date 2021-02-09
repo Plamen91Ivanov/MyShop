@@ -32,6 +32,12 @@ namespace Shop.Services.Data
             this.cloudinary = cloudinary;
         }
 
+        public IEnumerable<T> GetAllPromotedProducts<T>()
+        {
+            var promotedProduct = this.product.All().To<T>().ToList();
+            return promotedProduct;
+        }
+
         public async Task<int> CreateAsync(string name, string description, decimal price, string location, string userId)
         {
             Product product = new Product

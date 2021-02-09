@@ -1,10 +1,21 @@
 ﻿@using Shop.Common
-@{
-    this.ViewData["Title"] = "Home Page";
-}
+@model Shop.Web.ViewModels.Create.ProductsInputModel
+
+@{ this.ViewData["Title"] = "Home Page"; }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1>Категории</h1>
 </div>
+<div class="text-center">
+    <h1>Обяви</h1>
+    @foreach (var product in Model.Products)
+	{
+		 <h1>@product.Name</h1>
+         @foreach (var item in product.Images)
+         {
+             <img src="http://res.cloudinary.com/ds1ne4hps/image/upload/@item.Name" />
+         }
+	}
+</div>
+
 

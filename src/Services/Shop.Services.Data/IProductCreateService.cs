@@ -16,6 +16,8 @@ namespace Shop.Services.Data
 
         T GetByName<T>(string name);
 
+        IEnumerable<T> GetAllPromotedProducts<T>();
+
         IEnumerable<T> GetUserProducts<T>(string userId);
     }
 }
