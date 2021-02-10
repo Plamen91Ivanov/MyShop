@@ -8,7 +8,7 @@ namespace Shop.Services.Data
 {
     public interface IProductCreateService
     {
-        Task<int> CreateAsync(string name, string description, decimal price, string location, string userId);
+        Task<int> CreateAsync(string name, string description, decimal price, string location, string userId, IFormFile image);
 
         Task<int> CreateImage(ICollection<IFormFile> images, int id);
 

@@ -5,8 +5,17 @@
 <h1>@Model.UserUserName</h1>
 <h1>@Model.Description</h1>
 
+
+<div class="product">
+    <p>hi</p>
+    <p>hi</p>
+    <p>hi</p>
+</div>
+
+
 @foreach (var item in Model.Images)
-{ 
+{
     <img src="http://res.cloudinary.com/ds1ne4hps/image/upload/@item.Name" />
     <hr />
 }
+

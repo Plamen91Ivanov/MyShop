@@ -11,6 +11,8 @@ namespace Shop.Web.ViewModels.Create
     {
         public int Id { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -20,6 +22,8 @@ namespace Shop.Web.ViewModels.Create
         public string Location { get; set; }
 
         public string UserUserName { get; set; }
+
+        public string Image { get; set; }
 
         public string Url => $"{this.Name}";
 

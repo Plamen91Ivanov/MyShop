@@ -1,4 +1,5 @@
 ﻿using Shop.Data.Common.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -22,6 +23,8 @@ namespace Shop.Data.Models
         public decimal Price { get; set; }
 
         public string Location { get; set; }
+
+        public string Image { get; set; }
 
         public virtual ICollection<ImageProduct> Images { get; set; }
     }

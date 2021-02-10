@@ -37,7 +37,7 @@ namespace Shop.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateAsync(ProductInputModel productInputModel, ICollection<IFormFile> images)
+        public async Task<IActionResult> CreateAsync(ProductInputModel productInputModel, IFormFile image, ICollection<IFormFile> images)
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
@@ -47,7 +47,8 @@ namespace Shop.Web.Controllers
                     productInputModel.Description,
                     productInputModel.Price,
                     productInputModel.Location,
-                    user.Id
+                    user.Id,
+                    image
                     );
 
             var img = await this.product.CreateImage(images, createProduct);

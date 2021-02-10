@@ -38,8 +38,30 @@ namespace Shop.Services.Data
             return promotedProduct;
         }
 
-        public async Task<int> CreateAsync(string name, string description, decimal price, string location, string userId)
+        public async Task<int> CreateAsync(string name, string description, decimal price, string location, string userId, IFormFile image)
         {
+            byte[] destinationImage;
+            string[] imagePath;
+            var imageName = string.Empty;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                await image.CopyToAsync(memoryStream);
+                destinationImage = memoryStream.ToArray();
+            }
+
+            using (var destinationStream = new MemoryStream(destinationImage))
+            {
+                var upload = new ImageUploadParams()
+                {
+                    File = new FileDescription(image.FileName, destinationStream),
+                };
+                var result = await this.cloudinary.UploadAsync(upload);
+                var imageUri = result.Uri.AbsoluteUri;
+                imagePath = imageUri.Split("upload/");
+                imageName = imagePath[1];
+            }
+
             Product product = new Product
             {
                 UserId = userId,
@@ -47,11 +69,11 @@ namespace Shop.Services.Data
                 Description = description,
                 Price = price,
                 Location = location,
+                Image = imageName,
             };
 
             await this.product.AddAsync(product);
             await this.product.SaveChangesAsync();
-
             return product.Id;
         }
 
@@ -60,8 +82,8 @@ namespace Shop.Services.Data
             foreach (var file in images)
             {
                 byte[] destinationImage;
-                string[] imageName;
-                var testche = "";
+                string[] imagePath;
+                var imageName = string.Empty;
 
                 using (var memoryStream = new MemoryStream())
                 {
@@ -77,14 +99,14 @@ namespace Shop.Services.Data
                     };
                     var result = await this.cloudinary.UploadAsync(upload);
                     var test = result.Uri.AbsoluteUri;
-                    imageName = test.Split("upload/");
-                    testche = imageName[1];
+                    imagePath = test.Split("upload/");
+                    imageName = imagePath[1];
 
                 }
 
                 var img = new ImageProduct
                 {
-                    Name = testche,
+                    Name = imageName,
                     ProductId = id,
                 };
                 await this.imageProduct.AddAsync(img);

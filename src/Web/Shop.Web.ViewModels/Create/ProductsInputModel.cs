@@ -9,5 +9,6 @@ namespace Shop.Web.ViewModels.Create
     public class ProductsInputModel : IMapFrom<Product>
     {
         public IEnumerable<ProductInputModel> Products { get; set; }
+
     }
 }

@@ -8,14 +8,23 @@
 </div>
 <div class="text-center">
     <h1>Обяви</h1>
-    @foreach (var product in Model.Products)
-	{
-		 <h1>@product.Name</h1>
-         @foreach (var item in product.Images)
-         {
-             <img src="http://res.cloudinary.com/ds1ne4hps/image/upload/@item.Name" />
+    <div class="row">
+        @foreach (var product in Model.Products)
+        {
+             <div class="col-3">
+                 <a href="/product/@product.Name">
+                     <div class="card" style="width: 18rem;">
+                         <img class="card-image" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@product.Image">
+                         <div class="card-body">
+                             <h5 class="card-title">@product.Name</h5>
+                             <p class="card-text">@product.Description</p>
+                             <p class="card-text">@product.Price $</p>
+                         </div>
+                     </div>
+                 </a>
+             </div>
          }
-	}
+    </div>
 </div>
 
 

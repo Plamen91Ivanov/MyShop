@@ -1,0 +1,12 @@
+﻿.product {
+    border: 2px solid green;
+}
+.product-information{
+    border: 2px solid black;
+}
+.cover-image{
+    border: 2px solid red;
+}
+.ad{
+    margin:150px;
+}

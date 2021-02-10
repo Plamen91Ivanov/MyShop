@@ -1,12 +1,38 @@
 ﻿@model Shop.Web.ViewModels.Create.ProductInputModel
+<div class="ad">
+</div>
+<div class="product row">
+    <div class="cover-image col-8">
+        <img class="card-image" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@Model.Image">
+    </div>
+    <div class="col-1">
 
-<h1>@Model.Id</h1>
-<h1>@Model.Name</h1>
-<h1>@Model.UserUserName</h1>
-<h1>@Model.Description</h1>
+    </div>
+    <div class="product-information col-3">
+        <h3>Потребител</h3>
+        <p>@Model.UserUserName</p> 
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="product-information text-left col-8">
+        <p>Добавена на : @Model.CreatedOn</p>
+        <h1>@Model.Name</h1>
+        <hr />
 
-@foreach (var item in Model.Images)
-{
-    <img src="http://res.cloudinary.com/ds1ne4hps/image/upload/@item.Name" />
-    <hr />
-}
+        <h3 class="font-weight-bold">@Model.Price Лв</h3>
+        <hr />
+        <h3>Описание</h3>
+        <p>@Model.Description</p>
+        <div class="row">
+            <div class="col-4"><span>Преглеждания</span></div>
+        </div>
+    </div>
+</div>
+
+
+    @*@foreach (var item in Model.Images)
+    {
+        <img src="http://res.cloudinary.com/ds1ne4hps/image/upload/@item.Name" />
+        <hr />
+    }*@
