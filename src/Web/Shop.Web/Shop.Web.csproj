@@ -36,4 +36,8 @@
     <ProjectReference Include="..\Shop.Web.Infrastructure\Shop.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\Shop.Web.ViewModels\Shop.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
 </Project>
