@@ -3,16 +3,75 @@
 
 @{ this.ViewData["Title"] = "Home Page"; }
 
-<div class="text-center">
-    <h1>Категории</h1>
+<style>
+ @@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,600&display=swap');
+  
+.loading {
+	opacity: 0;
+	display: flex;
+	position: fixed;
+    margin-bottom:50px;
+	bottom: 50px;
+	left: 50%;
+	transform: translateX(-50%);
+	transition: opacity .3s ease-in;
+}
+
+.loading.show {
+	opacity: 1;
+}
+
+.ball {
+	background-color: #777;
+	border-radius: 50%;
+	margin: 5px;
+	height: 10px;
+	width: 10px;
+	animation: jump .5s ease-in infinite;
+}
+
+.ball:nth-of-type(2) {
+	animation-delay: 0.1s;
+}
+
+.ball:nth-of-type(3) {
+	animation-delay: 0.2s;
+}
+    .categories{
+        padding:30px 0 30px 0;
+    }
+    .promo-container {
+        padding-top: 30px;
+        padding-bottom: 20px;
+    }
+ .row{
+     margin-top:30px;
+ }
+    
+
+    @@keyframes jump {
+        0%, 100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-10px);
+	}
+}
+</style>
+
+<div class="text-center categories">
+    <h3>Категории</h3>
 </div>
-<div class="text-center bg-light test">
-    <h1>Обяви</h1>
-    <div class="row">
+<div class="text-center bg-light promo-container">
+    <div class="">
+        <h3>Обяви</h3>
+    </div>
+    <div class="row" id="row">
         @foreach (var product in Model.Products)
         {
              <div class="col-3">
-                 <a href="/product/@product.Name">
+                 <a href="/product/@product.Url">
                      <div class="card shadow p-3 mb-5 bg-white rounded">
                          @if (product.Image == null)
                          {
@@ -33,34 +92,33 @@
          }
     </div>
 </div>
+<div class="container" id="container">
+
+</div>
+<div class="loading">
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+</div>
 
 <script>
-    const container = document.getElementById('container');
+    const row = document.getElementById('row');
     const loading = document.querySelector('.loading');
-    let number = 0;
-    let timerNumber = 0;
+    let number = 1;
 
     getPost();
 
     window.addEventListener('scroll', () => {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-        console.log('what');
-        if (clientHeight + scrollTop >= scrollHeight - 5) {
+        console.log('scrolling');
+        var test = clientHeight + scrollTop >= scrollHeight - 5;
+        var test1 = Math.round(clientHeight + scrollTop);
+        var test2 = Math.round(scrollHeight);
+        if (test1 == test2) {
             // show the loading animation
-            if (timerNumber == 0) {
                 showLoading();
-                timerNumber++;
-            }
         }
     });
-
-    function timer() {
-        for (let index = 1; index < 300; index++) {
-            timerNumber = index;
-        }
-        timerNumber = 0;
-    }
 
     function showLoading() {
         loading.classList.add('show');
@@ -71,14 +129,11 @@
 
     async function getPost() {
         //const postResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${getRandomNr()}`);
-        const postResponse = await fetch(`https://localhost:44319/api/message/${number}`);
+        const postResponse = await fetch(`https://localhost:44319/api/post/${number}`);
         number++;
-        console.log(number);
+        console.log("id number : " + number);
         const postData = await postResponse.json();
-        const userResponse = await fetch('https://randomuser.me/api');
-        const userData = await userResponse.json();
 
-        // const data = { post: postData, user: userData.results[0] };
         const data = postData;
 
         console.log(data);
@@ -97,13 +152,29 @@
 
         for (let message of data) {
             const postElement = document.createElement('div');
-            postElement.classList.add('blog-post');
+            postElement.classList.add('col-3');
 
+                         if (message.image == null)
+                         {
+                                  var image = `<img class="card-image" src="/Images/NoImages.jpg">`
+                         }
+                         else
+                         {
+                             var image = `<img class="card-image rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/${message.image}">`
+                         }
 
             postElement.innerHTML = `
-		<h2 class="title">${message.content}</h2>
+                 <a href="/product/${message.url}">
+                     <div class="card shadow p-3 mb-5 bg-white rounded">
+                         ${image}
+                         <div class="card-body">
+                             <p class="card-text">${message.description}</p>
+                             <p class="card-text">${message.price} $</p>
+                         </div>
+                     </div>
+                 </a>
 	`;
-            container.appendChild(postElement);
+            row.appendChild(postElement);
         }
         loading.classList.remove('show');
     }

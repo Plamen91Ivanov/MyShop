@@ -23,6 +23,7 @@
             {
                 Products = this.product.GetAllPromotedProducts<ProductInputModel>(),
             };
+
             return this.View(products);
         }
 

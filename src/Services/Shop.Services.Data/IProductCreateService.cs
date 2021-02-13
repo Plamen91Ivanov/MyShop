@@ -18,6 +18,8 @@ namespace Shop.Services.Data
 
         IEnumerable<T> GetAllPromotedProducts<T>();
 
+        IEnumerable<T> GetPromotedProductsById<T>(int id , int itemsPerPage);
+
         IEnumerable<T> GetUserProducts<T>(string userId);
     }
 }

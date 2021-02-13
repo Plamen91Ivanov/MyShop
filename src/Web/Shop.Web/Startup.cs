@@ -114,7 +114,7 @@
             app.UseEndpoints(
                 endpoints =>
                     {
-                        endpoints.MapControllerRoute("product", "product/{name:minlength(3)}", new { controller = "product", action = "productByName" });
+                        endpoints.MapControllerRoute("product", "product/f/{name:minlength(3)}", new { controller = "product", action = "productByName" });
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

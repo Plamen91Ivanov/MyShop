@@ -25,7 +25,7 @@ namespace Shop.Web.ViewModels.Create
 
         public string Image { get; set; }
 
-        public string Url => $"{this.Name}";
+        public string Url => $"f/{this.Name}";
 
         public IEnumerable<ImageViewModel> Images { get; set; }
     }

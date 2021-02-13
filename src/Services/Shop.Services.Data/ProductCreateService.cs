@@ -16,6 +16,7 @@ namespace Shop.Services.Data
 {
     public class ProductCreateService : IProductCreateService
     {
+        private const int InitialPosts = 4;
         private readonly IDeletableEntityRepository<Product> product;
         private readonly IDeletableEntityRepository<ProductImage> productImage;
         private readonly IDeletableEntityRepository<ImageProduct> imageProduct;
@@ -34,8 +35,15 @@ namespace Shop.Services.Data
 
         public IEnumerable<T> GetAllPromotedProducts<T>()
         {
-            var promotedProduct = this.product.All().To<T>().ToList();
+            var promotedProduct = this.product.All().Take(InitialPosts).To<T>().ToList();
             return promotedProduct;
+        }
+
+        public IEnumerable<T> GetPromotedProductsById<T>(int id, int itemsPerPage)
+        {
+            var product = this.product.All().Skip((id * itemsPerPage) + InitialPosts).Take(itemsPerPage).To<T>().ToList();
+
+            return product;
         }
 
         public async Task<int> CreateAsync(string name, string description, decimal price, string location, string userId, IFormFile image)

@@ -1,21 +1,40 @@
 ﻿@model Shop.Web.ViewModels.Create.ProductsInputModel
-  
+
 <div class="text-center">
     <h1>Моите обяви</h1>
     <div class="row">
         @foreach (var product in Model.Products)
         {
-<div class="col-3">
-    <a href="/product/@product.Name">
-        <div class="card" style="width: 18rem;">
-            <img class="card-image" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@product.Image">
-            <div class="card-body">
-                <h5 class="card-title">@product.Name</h5>
-                <p class="card-text">@product.Description</p>
-                <p class="card-text">@product.Price $</p>
+            <div class="col-3">
+                <a href="/product/@product.Url">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-image" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@product.Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">@product.Description</p>
+                            <p class="card-text">@product.Price $</p>
+                        </div>
+                    </div>
+                </a>
+            </div>}
+    </div>
+</div>
+
+<div class="row">
+    <div class="card-group">
+        @foreach (var product in Model.Products)
+        {
+        <div class="col-6">
+            <div class="card">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
             </div>
         </div>
-    </a>
-</div>}
+         
+        }
     </div>
 </div>
