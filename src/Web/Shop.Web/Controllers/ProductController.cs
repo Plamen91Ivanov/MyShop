@@ -34,6 +34,7 @@ namespace Shop.Web.Controllers
             return this.View(productViewModel);
         }
 
+
         public IActionResult MyProducts()
         {
             var user = this.userManager.GetUserAsync(this.User).GetAwaiter().GetResult();

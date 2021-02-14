@@ -66,6 +66,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IProductCreateService, ProductCreateService>();
+            services.AddTransient<IBrandService, BrandService>();
 
             Account account = new Account(
                      this.configuration["Cloudinary:AppName"],
