@@ -16,18 +16,20 @@ namespace Shop.Services.Data
     public class BrandService : IBrandService
     {
         private readonly IDeletableEntityRepository<Brand> brand;
+        private readonly IDeletableEntityRepository<Product> product;
         private readonly Cloudinary cloudinary;
 
         public BrandService(IDeletableEntityRepository<Brand> brand,
+                            IDeletableEntityRepository<Product> product,
                             Cloudinary cloudinary)
         {
             this.brand = brand;
+            this.product = product;
             this.cloudinary = cloudinary;
         }
 
         public async Task<int> Create(string name, string description, string userId, IFormFile image)
         {
-
             byte[] destinationImage;
             string[] imagePath;
             var imageName = string.Empty;
@@ -54,6 +56,7 @@ namespace Shop.Services.Data
             {
                 Name = name,
                 Description = description,
+                UserId = userId,
                 Logo = imageName,
             };
 
@@ -68,6 +71,20 @@ namespace Shop.Services.Data
             var brand = this.brand.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
 
             return brand;
+        }
+
+        public IEnumerable<T> AllProduct<T>(int id)
+        {
+            var products = this.product.All().Where(x => x.BrandId == id).To<T>().ToList();
+
+            return products;
+        }
+
+        public IEnumerable<T> BrandsByUserId<T>(string id)
+        {
+            var brands = this.brand.All().Where(x => x.UserId == id).To<T>().ToList();
+
+            return brands;
         }
     }
 }

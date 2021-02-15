@@ -1,4 +1,8 @@
-﻿using Shop.Services.Mapping;
+﻿using Shop.Data.Models;
+using Shop.Services.Mapping;
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Shop.Web.ViewModels.Brand
 {
     public class BrandViewModel : IMapFrom<Shop.Data.Models.Brand>
@@ -10,5 +14,7 @@ namespace Shop.Web.ViewModels.Brand
         public string Location { get; set; }
 
         public string Logo { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

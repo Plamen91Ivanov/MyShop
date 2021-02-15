@@ -1,0 +1,7 @@
+﻿@model Shop.Web.ViewModels.Brand.BrandViewModel
+
+<h1>@Model.Name</h1>
+@foreach (var item in Model.Products)
+{
+    <h1>@item.Name</h1>
+}

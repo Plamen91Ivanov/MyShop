@@ -11,5 +11,9 @@ namespace Shop.Services.Data
         Task<int> Create(string name, string description, string userId, IFormFile logo);
 
         T BrandById<T>(int id);
+
+        IEnumerable<T> AllProduct<T>(int id);
+
+        IEnumerable<T> BrandsByUserId<T>(string id);
     }
 }

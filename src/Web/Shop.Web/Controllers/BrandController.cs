@@ -24,6 +24,17 @@ namespace Shop.Web.Controllers
             this.userManager = userManager;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var userId = await this.userManager.GetUserAsync(this.User);
+
+            var brand = new BrandsViewModel
+            {
+                Brands = this.brandService.BrandsByUserId<BrandViewModel>(userId.Id),
+            };
+            return this.View(brand);
+        }
+
         public IActionResult Create()
         {
             return this.View();
@@ -47,6 +58,12 @@ namespace Shop.Web.Controllers
             return this.View(brand);
         }
 
+        public IActionResult Products(int id)
+        {
+            var products = this.brandService.AllProduct<BrandViewModel>(id);
+
+            return this.View();
+        }
         //user brands !
         //public IActionResult Brand()
         //{

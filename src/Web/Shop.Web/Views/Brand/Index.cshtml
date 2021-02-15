@@ -1,0 +1,9 @@
+﻿@model Shop.Web.ViewModels.Brand.BrandsViewModel
+
+<h1>Brands</h1>
+<a class="btn btn-secondary">Add brand</a>
+
+@foreach (var brand in Model.Brands)
+{
+    <h5>@brand.Name</h5>
+}
