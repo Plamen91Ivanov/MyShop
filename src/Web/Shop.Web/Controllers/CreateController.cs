@@ -30,14 +30,15 @@ namespace Shop.Web.Controllers
             this.cloudinary = cloudinary;
         }
 
-        public IActionResult ProductCreate()
+        public IActionResult ProductCreate(int id)
         {
+            this.ViewBag.BrandId = id;
             return this.View();
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateAsync(ProductInputModel productInputModel, IFormFile image, ICollection<IFormFile> images)
+        public async Task<IActionResult> CreateAsync(ProductInputModel productInputModel, IFormFile image, ICollection<IFormFile> images, int BrandId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
 

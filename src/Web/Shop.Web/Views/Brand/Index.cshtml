@@ -1,9 +1,16 @@
 ﻿@model Shop.Web.ViewModels.Brand.BrandsViewModel
 
 <h1>Brands</h1>
-<a class="btn btn-secondary">Add brand</a>
+<a asp-controller="Brand" asp-action="Create" class="btn btn-secondary">Create brand</a>
 
-@foreach (var brand in Model.Brands)
-{
-    <h5>@brand.Name</h5>
-}
+<div class="row">
+    @foreach (var brand in Model.Brands)
+    {
+        <div class="col-3">
+            <a href="/brand/brand/@brand.Id"><img class="img-thumbnail" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@brand.Logo" /></a>
+            <h5>@brand.Name</h5>
+            <h5>@brand.Description</h5>
+        </div>
+
+    }
+</div>
