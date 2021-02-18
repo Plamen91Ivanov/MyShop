@@ -1,7 +1,54 @@
 ﻿@model Shop.Web.ViewModels.Brand.BrandViewModel
 
-<a href="/create/productCreate/@Model.Id" class="btn btn-primary">Add Product</a>
+<style>
+    .image-height {
+        height: 300px;
+    }
+    .old-price {
+        margin-top: 10px;
+        font-size: 1.6em;
+        text-decoration: line-through;
+        color: darkred;
+    }
 
-<img src="http://res.cloudinary.com/ds1ne4hps/image/upload/@Model.Logo"/>
-<h1>@Model.Name</h1>
-<h1>@Model.Description</h1>
+    .new-price {
+        color: forestgreen;
+        font-size: 2em;
+        line-height: 1.1;
+    }
+
+</style>
+
+<div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+        <div class="card mb-3">
+            <img class="img-thumbnail image-height" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@Model.Logo">
+            <div class="card-body text-center">
+                <h5 class="card-title">@Model.Name</h5>
+                <p class="card-text">@Model.Description</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+    </div>
+</div>
+<div class="text-center">
+<a href="/create/productCreate/@Model.Id" class="btn btn-primary text-center">Add Product</a>
+</div>
+<hr />
+<div class="row">
+    @foreach (var product in Model.Products)
+	{
+        
+        <div class="card">
+            <a href="/product/f/@product.Name">
+            <img class="image-height" src="http://res.cloudinary.com/ds1ne4hps/image/upload//@product.Image" alt="Alternate Text" />
+            </a>
+		 <h1 class="card-title text-center">@product.Name</h1>
+         <p class="old-price text-center">@((double)product.Price + (double)product.Price * 0.1)<span>lv</span></p>
+            <p class="new-price text-center">@((int)@product.Price)<sup>@((int)@product.Price)</sup><span>lv</span></p>
+        </div>
+    }
+</div>

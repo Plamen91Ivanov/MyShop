@@ -1,243 +1,257 @@
 ﻿@model Shop.Web.ViewModels.Create.ProductInputModel
 
-    <style>
-        body {
-            font-family: Arial;
-            margin: 0;
+<style>
+    body {
+        font-family: Arial;
+        margin: 0;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .image-gallery {
+        width: 100%;
+        height: 100%;
+    }
+
+    .image-slider {
+        width: 100%;
+        height: 700px;
+    }
+
+    img {
+        vertical-align: middle;
+    }
+    /* Position the image container (needed to position the left and right arrows) */
+    .slider-container {
+        width: 50%;
+        position: relative;
+        justify-content: left;
+        align-items: flex-start;
+    }
+
+    /* Hide the images by default */
+    .mySlides {
+        padding-left: 16px;
+        display: none;
+    }
+
+    /* Add a pointer when hovering over the thumbnail images */
+    .cursor {
+        cursor: pointer;
+    }
+
+    /* Next & previous buttons */
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 40%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
-        * {
-            box-sizing: border-box;
+    /* Number text (1/3 etc) */
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    /* Container for image text */
+    .caption-container {
+        text-align: center;
+        background-color: #222;
+        padding: 2px 16px;
+        color: white;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* Six columns side by side */
+    .column {
+        float: left;
+        width: 16.66%;
+    }
+
+    .row-iamges {
+        padding-left: 31px;
+    }
+    /* Add a transparency effect for thumnbail images */
+    .demo {
+        opacity: 0.6;
+    }
+
+        .active,
+        .demo:hover {
+            opacity: 1;
         }
+</style>
 
-        img {
-            vertical-align: middle;
-        }
+<div class="ad">
+</div>
+<hr />
 
-        /* Position the image container (needed to position the left and right arrows) */
-        .container {
-            position: relative;
-        }
+<h1>@Model.Name</h1>
 
-        /* Hide the images by default */
-        .mySlides {
-            display: none;
-        }
+<hr />
 
-        /* Add a pointer when hovering over the thumbnail images */
-        .cursor {
-            cursor: pointer;
-        }
-
-        /* Next & previous buttons */
-        .prev,
-        .next {
-            cursor: pointer;
-            position: absolute;
-            top: 40%;
-            width: auto;
-            padding: 16px;
-            margin-top: -50px;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        /* Position the "next button" to the right */
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
-
-            /* On hover, add a black background color with a little bit see-through */
-            .prev:hover,
-            .next:hover {
-                background-color: rgba(0, 0, 0, 0.8);
-            }
-
-        /* Number text (1/3 etc) */
-        .numbertext {
-            color: #f2f2f2;
-            font-size: 12px;
-            padding: 8px 12px;
-            position: absolute;
-            top: 0;
-        }
-
-        /* Container for image text */
-        .caption-container {
-            text-align: center;
-            background-color: #222;
-            padding: 2px 16px;
-            color: white;
-        }
-
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-        /* Six columns side by side */
-        .column {
-            float: left;
-            width: 16.66%;
-        }
-
-        /* Add a transparency effect for thumnbail images */
-        .demo {
-            opacity: 0.6;
-        }
-
-            .active,
-            .demo:hover {
-                opacity: 1;
-            }
-    </style>
-
-    <div class="ad">
-    </div>
-    <div class="product row">
-        <div class="cover-image col-8">
-            <img class="card-image" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@Model.Image">
+<div class="row">
+    <div class="col-lg-5">
+        <div class="mySlides text-center">
+            <img class="image-slider" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@Model.Image">
         </div>
-        <div class="col-1">
 
-        </div>
-        <div class="product-information col-3">
-            <h3>Потребител</h3>
-            <p>@Model.UserUserName</p>
-        </div>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="product-information text-left col-8">
-            <p>Добавена на : @Model.CreatedOn</p>
-            <h1>@Model.Name</h1>
-            <hr />
+        @{ var imageNumber = 2;}
 
-            <h3 class="font-weight-bold">@Model.Price Лв</h3>
-            <hr />
-            <h3>Описание</h3>
-            <p>@Model.Description</p>
-            <div class="row">
-                <div class="col-4"><span>Преглеждания</span></div>
+        @foreach (var item in Model.Images)
+        {
+
+            <div class="mySlides text-center">
+                <img class="image-slider" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@item.Name">
             </div>
-        </div>
-    </div>
+        }
 
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
 
- 
-        <h2 style="text-align:center">Slideshow Gallery</h2>
-        <div class="container">
-            <div class="mySlides">
-                <div class="numbertext">1 / 6</div>
-                <img src="http://res.cloudinary.com/ds1ne4hps/image/upload/@Model.Image" style="width:100%">
+        <div class="row row-iamges">
+            <div class="column">
+                <img class="demo cursor image-gallery" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@Model.Image" onclick="currentSlide(1)" alt="The Woods">
             </div>
-            <div class="mySlides">
-                <div class="numbertext">2 / 6</div>
-                <img src="/Images/img_5terre_wide.jpg" style="width:100%">
-            </div>
-
-            <div class="mySlides">
-                <div class="numbertext">3 / 6</div>
-                <img src="/Images/img_mountains_wide.jpg" style="width:100%">
-            </div>
-
-            <div class="mySlides">
-                <div class="numbertext">4 / 6</div>
-                <img src="/Images/img_lights_wide.jpg" style="width:100%">
-            </div>
-
-            <div class="mySlides">
-                <div class="numbertext">5 / 6</div>
-                <img src="/Images/img_nature_wide.jpg" style="width:100%">
-            </div>
-
-            <div class="mySlides">
-                <div class="numbertext">6 / 6</div>
-                <img src="/Images/img_snow_wide.jpg" style="width:100%">
-            </div>
-            @{ var test = 7;}
 
             @foreach (var item in Model.Images)
             {
-                
-                <div class="mySlides">
-                    <div class="numbertext">@test / 6</div>
-                    <img src="http://res.cloudinary.com/ds1ne4hps/image/upload/@item.Name" style="width:100%">
+                <div class="column">
+                    <img class="demo cursor image-gallery" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@item.Name" onclick="currentSlide(@imageNumber)" alt="@item.Name">
                 </div>
+                imageNumber++;
             }
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="row">
+            <div class="col-6">
 
-
-            <a class="prev" onclick="plusSlides(-1)">❮</a>
-            <a class="next" onclick="plusSlides(1)">❯</a>
-
-            <div class="caption-container">
-                <p id="caption"></p>
             </div>
-
-            <div class="row">
-                <div class="column">
-                    <img class="demo cursor" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@Model.Image" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
-                </div>
-                <div class="column">
-                    <img class="demo cursor" src="/Images/img_lights_wide.jpg" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
-                </div>
-                <div class="column">
-                    <img class="demo cursor" src="/Images/img_mountains_wide.jpg" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
-                </div>
-                <div class="column">
-                    <img class="demo cursor" src="/Images/img_nature_wide.jpg" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
-                </div>
-                <div class="column">
-                    <img class="demo cursor" src="/Images/img_snow_wide.jpg" style="width:100%" onclick="currentSlide(5)" alt="Nature and sunrise">
-                </div>
-                <div class="column">
-                    <img class="demo cursor" src="/Images/img_woods_wide.jpg" style="width:100%" onclick="currentSlide(6)" alt="Snowy Mountains">
-                </div>
-
-                @foreach (var item in Model.Images)
-                {
-                    <div class="column">
-                        <img class="demo cursor" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@item.Name" style="width:100%" onclick="currentSlide(@test)" alt="@item.Name">
-                    </div>
-                    test++;
-                }
+            <div class="col-6">
+                <p class="font-weight-bold old-price"></p>
+                <p class="font-weight-bold new-price">@Model.IntegerPrice<sup>@Model.Coins</sup><span>Лв</span></p>
+                <hr />
+                <a href="#" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#largeModal">Добави в количката</a>
             </div>
         </div>
 
-        <script>
-            var slideIndex = 1;
-            showSlides(slideIndex);
+    </div>
+</div>
 
-            function plusSlides(n) {
-                showSlides(slideIndex += n);
-            }
+<hr />
 
-            function currentSlide(n) {
-                showSlides(slideIndex = n);
-            }
+<div class="row">
+    <div class="product-information text-left col-8">
+        <p>Добавена на : @Model.CreatedOn</p>
 
-            function showSlides(n) {
-                var i;
-                var slides = document.getElementsByClassName("mySlides");
-                var dots = document.getElementsByClassName("demo");
-                var captionText = document.getElementById("caption");
-                if (n > slides.length) { slideIndex = 1 }
-                if (n < 1) { slideIndex = slides.length }
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                }
-                for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                }
-                slides[slideIndex - 1].style.display = "block";
-                dots[slideIndex - 1].className += " active";
-                captionText.innerHTML = dots[slideIndex - 1].alt;
-            }
-        </script>
- 
+        <hr />
+
+
+        <hr />
+        <h3>Описание</h3>
+        <p>@Model.Description</p>
+        <div class="row">
+            <div class="col-4"><span>Преглеждания</span></div>
+        </div>
+    </div>
+    <div class="col-4 product-information">
+        <h3>Потребител</h3>
+        <p>@Model.UserUserName</p>
+    </div>
+</div>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close"></button>
+            <h4>Продуктът е добавен в количката</h4>
+        </div>
+    </div>
+</div>
+
+<!-- large modal -->
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-primary" id="myModalLabel">Продуктът е добавен в количката</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>Modal Body</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
+</script>

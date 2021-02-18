@@ -19,6 +19,10 @@ namespace Shop.Web.ViewModels.Create
 
         public decimal Price { get; set; }
 
+        public int IntegerPrice => (int)this.Price;
+
+        public int Coins => (int)this.Price;
+
         public string Location { get; set; }
 
         public string UserUserName { get; set; }

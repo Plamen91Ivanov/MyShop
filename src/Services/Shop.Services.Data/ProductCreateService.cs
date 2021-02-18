@@ -46,7 +46,7 @@ namespace Shop.Services.Data
             return product;
         }
 
-        public async Task<int> CreateAsync(string name, string description, decimal price, string location, string userId, IFormFile image)
+        public async Task<int> CreateAsync(string name, string description, decimal price, string location, string userId, IFormFile image, int brandId)
         {
             byte[] destinationImage;
             string[] imagePath;
@@ -78,6 +78,7 @@ namespace Shop.Services.Data
                 Price = price,
                 Location = location,
                 Image = imageName,
+                BrandId = brandId,
             };
 
             await this.product.AddAsync(product);
