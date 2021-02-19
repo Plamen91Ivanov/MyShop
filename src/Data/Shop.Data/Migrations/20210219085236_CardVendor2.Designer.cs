@@ -10,8 +10,8 @@ using Shop.Data;
 namespace Shop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210218144236_CardVendor")]
-    partial class CardVendor
+    [Migration("20210219085236_CardVendor2")]
+    partial class CardVendor2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -288,6 +288,37 @@ namespace Shop.Data.Migrations
                     b.ToTable("Brands");
                 });
 
+            modelBuilder.Entity("Shop.Data.Models.CardVendor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CardVendors");
+                });
+
             modelBuilder.Entity("Shop.Data.Models.ImageProduct", b =>
                 {
                     b.Property<int>("Id")
@@ -332,6 +363,9 @@ namespace Shop.Data.Migrations
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CardVendorId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -365,6 +399,8 @@ namespace Shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
+
+                    b.HasIndex("CardVendorId");
 
                     b.HasIndex("IsDeleted");
 
@@ -495,6 +531,13 @@ namespace Shop.Data.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("Shop.Data.Models.CardVendor", b =>
+                {
+                    b.HasOne("Shop.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Shop.Data.Models.ImageProduct", b =>
                 {
                     b.HasOne("Shop.Data.Models.Product", null)
@@ -511,6 +554,10 @@ namespace Shop.Data.Migrations
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Shop.Data.Models.CardVendor", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CardVendorId");
 
                     b.HasOne("Shop.Data.Models.ApplicationUser", "User")
                         .WithMany()

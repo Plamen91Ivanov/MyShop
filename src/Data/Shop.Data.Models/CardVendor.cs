@@ -16,6 +16,8 @@ namespace Shop.Data.Models
 
         public virtual ApplicationUser User { get; set; }
 
+        public int ProductId { get; set; }
+
         public virtual ICollection<Product> Products { get; set; }
     }
 }

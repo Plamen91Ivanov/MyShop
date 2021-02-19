@@ -34,6 +34,8 @@
 
         public DbSet<Brand> Brands { get; set; }
 
+        public DbSet<CardVendor> CardVendors { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
