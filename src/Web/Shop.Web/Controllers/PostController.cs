@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Shop.Data;
+using Shop.Data.Models;
 using Shop.Services.Data;
 using Shop.Web.ViewModels.Create;
 using System;
@@ -16,16 +19,21 @@ namespace Shop.Web.Controllers
         private const int ItemsPerPage = 4;
 
         private readonly IProductCreateService product;
+        private readonly ApplicationDbContext context;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public PostController(IProductCreateService product)
+        public PostController(IProductCreateService product,
+                              ApplicationDbContext context,
+                              UserManager<ApplicationUser> userManager)
         {
             this.product = product;
+            this.context = context;
+            this.userManager = userManager;
         }
 
-        //    [HttpPut("{id}")]
-        //  [HttpGet(Name = "All")]
+       
+       
         [HttpGet("{id:int}")]
-        //    [Route("id")]
         public async Task<ActionResult<IEnumerable<ProductInputModel>>> AllOrderedByCreatedOnAscending(int id)
         {
             var products = new ProductsInputModel()
@@ -33,7 +41,7 @@ namespace Shop.Web.Controllers
                 Products = this.product.GetPromotedProductsById<ProductInputModel>(id, ItemsPerPage),
             };
 
-          //  var test = this.product.GetPromotedProductsById<ProductInputModel>(id, ItemsPerPage).ToList();
+            //  var test = this.product.GetPromotedProductsById<ProductInputModel>(id, ItemsPerPage).ToList();
 
             return products.Products.ToList();
         }

@@ -10,6 +10,7 @@ namespace Shop.Data.Models
         public Product()
         {
             this.Images = new HashSet<ImageProduct>();
+            this.ProductCarts = new HashSet<ProductCart>();
         }
 
         public string UserId { get; set; }
@@ -29,5 +30,7 @@ namespace Shop.Data.Models
         public int BrandId { get; set; }
 
         public virtual ICollection<ImageProduct> Images { get; set; }
+
+        public virtual ICollection<ProductCart> ProductCarts { get; set; }
     }
 }

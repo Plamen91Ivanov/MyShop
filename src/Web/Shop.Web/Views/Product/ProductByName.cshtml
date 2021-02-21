@@ -164,7 +164,7 @@
                 <p class="font-weight-bold old-price"></p>
                 <p class="font-weight-bold new-price">@Model.IntegerPrice<sup>@Model.Coins</sup><span>Лв</span></p>
                 <hr />
-                <a href="#" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#largeModal">Добави в количката</a>
+                <button type="submit" class="btn btn-lg btn-primary" onclick="addProductToCard(@Model.Id)" data-toggle="modal" data-target="#largeModal">Добави в количката</button>
             </div>
         </div>
 
@@ -178,7 +178,6 @@
         <p>Добавена на : @Model.CreatedOn</p>
 
         <hr />
-
 
         <hr />
         <h3>Описание</h3>
@@ -218,7 +217,7 @@
                         <img class="image-gallery" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@Model.Image">
                     </div>
                     <div class="col-5">
-                        
+
                     </div>
                     <div class="col-1">
                         <br />
@@ -233,10 +232,10 @@
                     </div>
 
                 </div>
-              
+
             </div>
             <div class="modal-footer text-center">
-               <h1>Some adds here</h1>
+                <h1>Some adds here</h1>
             </div>
         </div>
     </div>
@@ -272,5 +271,29 @@
         slides[slideIndex - 1].style.display = "block";
         dots[slideIndex - 1].className += " active";
         captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
+
+    async function addProductToCard(product) {
+
+       const postResponse = await fetch(`https://localhost:44319/api/card/${product}`);
+
+       //const appUrl = 'https://localhost:44319/api/';
+       //console.log('raboti');
+       //console.log(product);
+       //$.post({
+       //    url: appUrl + 'Post/Add',
+       //    headers:
+       //    {
+       //        'content-type': 'application/json'
+       //    },
+       //    data: JSON.stringify({ productId: product}),
+       //    success: function success(data) {
+       //        consol.log(data);
+       //    },
+       //    error: function error(error) {
+       //        console.log(error)
+       //    }
+       //});
+
     }
 </script>

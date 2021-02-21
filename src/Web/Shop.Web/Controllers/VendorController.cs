@@ -26,9 +26,23 @@ namespace Shop.Web.Controllers
         {
             var userId = await this.userManager.GetUserAsync(this.User);
 
-            var productsInVendorList = this.vendor.VendorList<VendorViewModel>(userId.Id);
+            //var vendor = new VendorsViewModel
+            //{
+            //   Products = this.vendor.VendorList<VendorViewModel>(userId.Id),
+            //};
+            var vend = this.vendor.AllProductInCart<VendorViewModel>(userId.Id);
+            //  var productsInVendorList = this.vendor.VendorList<VendorViewModel>(userId.Id);
 
-            return this.View(productsInVendorList);
+            return this.View(vend);
+        }
+
+        public async Task<IActionResult> AddToVendor(int productId)
+        {
+            var userId = await this.userManager.GetUserAsync(this.User);
+
+            var product = await this.vendor.AddProductToVendor(productId, userId.Id);
+
+            return this.Ok();
         }
     }
 }

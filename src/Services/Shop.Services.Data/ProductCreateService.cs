@@ -120,6 +120,7 @@ namespace Shop.Services.Data
                 };
                 await this.imageProduct.AddAsync(img);
             }
+
             await this.imageProduct.SaveChangesAsync();
 
             return 1;
@@ -132,6 +133,13 @@ namespace Shop.Services.Data
                 .FirstOrDefault();
 
             return product;
+        }
+
+        public Product GetProductById<Product>(int id)
+        {
+            var product = this.product.All().Where(x => x.Id == id).FirstOrDefault();
+
+            return product; 
         }
 
         public T GetByName<T>(string name)

@@ -10,6 +10,8 @@ namespace Shop.Web.ViewModels.Vendor
     {
         public string UserId { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public int ProductId { get; set; }
+
+        public IEnumerable<Product> Products { get; set; }
     }
 }
