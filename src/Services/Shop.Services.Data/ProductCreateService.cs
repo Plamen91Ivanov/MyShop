@@ -135,12 +135,6 @@ namespace Shop.Services.Data
             return product;
         }
 
-        public Product GetProductById<Product>(int id)
-        {
-            var product = this.product.All().Where(x => x.Id == id).FirstOrDefault();
-
-            return product; 
-        }
 
         public T GetByName<T>(string name)
         {

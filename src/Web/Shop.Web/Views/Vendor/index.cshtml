@@ -1,14 +1,62 @@
 ﻿@model Shop.Web.ViewModels.Create.ProductsInputModel
-@inject Shop.Services.Data.ProductCreateService productService
-<div class="row">
+
+@{ 
+    var totalPrice = 0m;
+}
+
+<style>
+    .card-products {
+        background-color: aliceblue;
+        padding: 20px;
+        padding-bottom: 150px;
+    }
+    .row-product{
+        background-color: burlywood;
+        margin: 10px 250px 20px 10px;
+        padding: 5px;
+
+    }
+    .card-image{
+        width: 130px;
+        height: 170px;
+    }
+</style>
+
+<h1>Количка за пазаруване</h1>
+
+<div class="card-products">
     @foreach (var product in Model.Products)
     {
-        <div class="col-2">
+        <div class="row row-product">
+            <div class="col-3">
+                <a href="/product/@product.Url">
+                    @if (product.Image == null)
+                    {
+                        <img class="card-image" src="/Images/NoImages.jpg">
+                    }
+                    else
+                    {
+                        <img class="card-image rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@product.Image">
+                    }
+                </a>
+            </div>
+            <div class="col-5">
+                <h5 class="card-title">@product.Name</h5>
+                <p class="card-text">@product.Description</p>
+                <input type="number" />
+            </div>
+            <div class="col-4">
+                
+                <p class="text-right" style="color:forestgreen">@product.Price $</p>
+                <a href="/vendor/delete/@product.Id" class="btn btn-danger">Премахни</a>
+            </div>
         </div>
-        <div class="col-8">
-        </div>
-        <div class="col-2">
-        </div>
-        <hr />
+        totalPrice += product.Price;
     }
+    <div class="text-right">
+        <p>Всички продукти: @totalPrice.ToString("C2") лв</p>
+        <p>Общо такси: <span style="color:forestgreen">Безплатно</span></p>
+        <p>Общо: @totalPrice.ToString("C2") лв</p>
+        <a type="submit" asp-controller="Cart" asp-action="Chekout" class="btn btn-primary">Продължи</a>
+    </div>
 </div>

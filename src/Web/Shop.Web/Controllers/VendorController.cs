@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Shop.Data.Models;
 using Shop.Services.Data;
+using Shop.Web.ViewModels.Cart;
+using Shop.Web.ViewModels.Create;
 using Shop.Web.ViewModels.Vendor;
 using System;
 using System.Collections.Generic;
@@ -26,14 +28,21 @@ namespace Shop.Web.Controllers
         {
             var userId = await this.userManager.GetUserAsync(this.User);
 
-            //var vendor = new VendorsViewModel
-            //{
-            //   Products = this.vendor.VendorList<VendorViewModel>(userId.Id),
-            //};
-            var vend = this.vendor.AllProductInCart<VendorViewModel>(userId.Id);
+            var vendor = new ProductsInputModel
+            {
+                Products = this.vendor.VendorList<ProductInputModel>(userId.Id),
+            };
+            // var vend = this.vendor.AllProductInCart<ProductsInputModel>(userId.Id);
             //  var productsInVendorList = this.vendor.VendorList<VendorViewModel>(userId.Id);
 
-            return this.View(vend);
+            return this.View(vendor);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var Delete = await this.vendor.Delete(id);
+
+            return this.RedirectToAction("index");
         }
 
         public async Task<IActionResult> AddToVendor(int productId)

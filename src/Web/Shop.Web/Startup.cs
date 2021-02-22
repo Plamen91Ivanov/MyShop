@@ -68,6 +68,8 @@
             services.AddTransient<IProductCreateService, ProductCreateService>();
             services.AddTransient<IBrandService, BrandService>();
             services.AddTransient<IVendorService, VendorService>();
+            services.AddTransient<ICardService, CardService>();
+
 
             Account account = new Account(
                      this.configuration["Cloudinary:AppName"],

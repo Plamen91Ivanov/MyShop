@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shop.Data;
 using Shop.Data.Models;
+using Shop.Services.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,15 @@ namespace Shop.Web.Controllers
     {
         private readonly ApplicationDbContext context;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ICardService cardService;
 
         public CardController(ApplicationDbContext context,
-                              UserManager<ApplicationUser> userManager)
+                              UserManager<ApplicationUser> userManager,
+                              ICardService cardService)
         {
             this.context = context;
             this.userManager = userManager;
+            this.cardService = cardService;
         }
 
         [HttpGet("{id:int}")]
@@ -28,14 +32,7 @@ namespace Shop.Web.Controllers
         {
             var userId = await this.userManager.GetUserAsync(this.User);
 
-            CardVendor product = new CardVendor
-            {
-                ProductId = id,
-                UserId = userId.Id,
-            };
-
-            await this.context.CardVendors.AddAsync(product);
-            await this.context.SaveChangesAsync();
+            var productId = await this.cardService.AddProductToCart(id, userId.Id);
 
             return this.Ok();
         }

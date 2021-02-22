@@ -12,5 +12,7 @@ namespace Shop.Services.Data
         Task<int> AddProductToVendor(int productId, string userId);
 
         T AllProductInCart<T>(string id);
+
+        Task<int> Delete(int id);
     }
 }

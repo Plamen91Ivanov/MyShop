@@ -12,10 +12,19 @@ namespace Shop.Services.Data
     public class VendorService : IVendorService
     {
         private readonly IDeletableEntityRepository<CardVendor> vendor;
+        private readonly IDeletableEntityRepository<CartProduct> cartProduct;
+        private readonly IDeletableEntityRepository<Cart> cart;
+        private readonly IDeletableEntityRepository<Product> product;
 
-        public VendorService(IDeletableEntityRepository<CardVendor> vendor)
+        public VendorService(IDeletableEntityRepository<CardVendor> vendor,
+                             IDeletableEntityRepository<CartProduct> cartProduct,
+                             IDeletableEntityRepository<Cart> cart,
+                             IDeletableEntityRepository<Product> product)
         {
             this.vendor = vendor;
+            this.cartProduct = cartProduct;
+            this.cart = cart;
+            this.product = product;
         }
 
         public async Task<int> AddProductToVendor(int productId, string userId)
@@ -33,7 +42,27 @@ namespace Shop.Services.Data
 
         public IEnumerable<T> VendorList<T>(string userId)
         {
-            var products = this.vendor.All().Where(x => x.UserId == userId).To<T>().ToList();
+            //var cartId = this.cart.All().Where(x => x.UserId == userId)
+            //  .FirstOrDefault();
+
+            var tests = this.cartProduct.All().Where(x => x.UserId == userId).ToList();
+            var test = new List<int>();
+
+            foreach (var item in tests)
+            {
+                test.Add(item.ProductId);
+            }
+
+            var products = new List<T>();
+
+            foreach (var item in test)
+            {
+                var product = this.product.All().Where(x => x.Id == item)
+                   .To<T>().FirstOrDefault();
+
+                products.Add(product);
+            }
+
             return products;
         }
 
@@ -42,6 +71,16 @@ namespace Shop.Services.Data
             var products = this.vendor.All().Where(x => x.UserId == id).To<T>().FirstOrDefault();
 
             return products;
+        }
+
+        public async Task<int> Delete(int id)
+        {
+            var deleteProduct = this.cartProduct.All().Where(x => x.ProductId == id).FirstOrDefault();
+            deleteProduct.IsDeleted = true;
+
+            await this.cartProduct.SaveChangesAsync();
+
+            return deleteProduct.Id;
         }
     }
 }
