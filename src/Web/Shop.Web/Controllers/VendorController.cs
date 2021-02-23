@@ -40,7 +40,7 @@ namespace Shop.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var Delete = await this.vendor.Delete(id);
+            var delete = await this.vendor.Delete(id);
 
             return this.RedirectToAction("index");
         }

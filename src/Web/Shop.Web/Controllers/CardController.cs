@@ -32,9 +32,16 @@ namespace Shop.Web.Controllers
         {
             var userId = await this.userManager.GetUserAsync(this.User);
 
-            var productId = await this.cardService.AddProductToCart(id, userId.Id);
-
-            return this.Ok();
+            var isConteined = this.cardService.IsContained(id, userId.Id);
+            if (isConteined)
+            {
+                return this.Ok();
+            }
+            else
+            {
+                var product = await this.cardService.AddProductToCart(id, userId.Id);
+                return this.Ok();
+            }
         }
     }
 }

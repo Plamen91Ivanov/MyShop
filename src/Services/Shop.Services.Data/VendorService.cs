@@ -46,12 +46,14 @@ namespace Shop.Services.Data
             //  .FirstOrDefault();
 
             var tests = this.cartProduct.All().Where(x => x.UserId == userId).ToList();
-            var test = new List<int>();
+            var test = new HashSet<int>();
 
             foreach (var item in tests)
             {
                 test.Add(item.ProductId);
             }
+
+            test.Distinct();
 
             var products = new List<T>();
 

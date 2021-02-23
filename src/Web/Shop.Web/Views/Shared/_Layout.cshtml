@@ -1,4 +1,9 @@
 ﻿@using Shop.Common
+@using Shop.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject Shop.Services.Data.CardService count
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +31,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
@@ -34,17 +39,26 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Create" asp-action="ProductCreate">Create</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="Create">Create Brand</a>
-                        </li>
-                        <li class="nav-item">
-                            <a type="button" asp-controller="Vendor" asp-action="Index" class="btn btn-primary">виж количката</a>
-
-                        </li>
+                        </li>*@
+                        @if (this.SignInManager.IsSignedIn(this.User))
+                        {
+                              <li class="nav-item">
+                                 <a class="nav-link text-dark" asp-area="" asp-controller="Create" asp-action="ProductCreate">Create</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="Create">Create Brand</a>
+                              </li>
+                              <li class="nav-item">
+                                  <div class="cart">
+                                      <a type="button" asp-controller="Vendor" asp-action="Index">
+                                          <i class="material-icons">
+                                              <img class="cart-image" src="~/Images/154fdf2f2759676a96e9aed653082276.png" />
+                                          </i>
+                                          <span class="count-buble">@count.ProductCount(this.UserManager.GetUserId(this.User))</span>
+                                      </a>
+                                  </div>
+                              </li>
+}
                     </ul>
                 </div>
             </div>

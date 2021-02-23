@@ -2,6 +2,7 @@
 using Shop.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,18 @@ namespace Shop.Services.Data
             this.cardProduct = cardProduct;
         }
 
+        public bool IsContained(int productId, string userId)
+        {
+            var product = this.cardProduct.All().Where(x => x.ProductId == productId && x.UserId == userId).FirstOrDefault();
+
+            if (product != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<int> AddProductToCart(int id, string userId)
         {
             CartProduct product = new CartProduct
@@ -28,6 +41,13 @@ namespace Shop.Services.Data
             await this.cardProduct.SaveChangesAsync();
 
             return product.Id;
+        }
+
+        public int ProductCount(string userId)
+        {
+            var count = this.cardProduct.All().Where(x => x.UserId == userId).Count();
+
+            return count;
         }
     }
 }

@@ -8,5 +8,10 @@ namespace Shop.Services.Data
     public interface ICardService
     {
        Task<int> AddProductToCart(int id, string userId);
+
+       bool IsContained(int productId, string userId);
+
+       int ProductCount(string userId);
+
     }
 }
