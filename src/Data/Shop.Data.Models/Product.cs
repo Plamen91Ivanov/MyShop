@@ -29,6 +29,10 @@ namespace Shop.Data.Models
 
         public int BrandId { get; set; }
 
+        public string Categoty { get; set; }
+
+        public int SeenCount { get; set; }
+
         public virtual ICollection<ImageProduct> Images { get; set; }
 
         public virtual ICollection<ProductCart> ProductCarts { get; set; }
