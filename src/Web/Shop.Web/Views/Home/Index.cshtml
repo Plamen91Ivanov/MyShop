@@ -61,7 +61,31 @@
 </style>
 
 <div class="text-center categories">
-    <h2>Категории</h2>
+    <h3>Категории</h3>
+    <div class="row" id="row">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-3">
+                <a href="/product/@product.Url">
+                    <div class="card shadow p-3 mb-5 bg-white rounded">
+                        @if (product.Image == null)
+                        {
+                            <img class="card-image" src="/Images/NoImages.jpg">
+                        }
+                        else
+                        {
+                            <img class="card-image rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@product.Image">
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">@product.Description</p>
+                            <p class="card-text">@product.Price $</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
 </div>
 <div class="text-center bg-light promo-container">
     <div class="">

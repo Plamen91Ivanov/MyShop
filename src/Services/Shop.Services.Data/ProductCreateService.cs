@@ -153,5 +153,13 @@ namespace Shop.Services.Data
 
             return products.To<T>().ToList();
         }
+
+        public bool Count(string name)
+        {
+            var count = this.product.All().Where(x => x.Name == name).FirstOrDefault();
+            count.SeenCount += 1;
+            this.product.SaveChangesAsync();
+            return true;
+        }
     }
 }

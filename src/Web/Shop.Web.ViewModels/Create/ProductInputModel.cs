@@ -31,6 +31,8 @@ namespace Shop.Web.ViewModels.Create
 
         public string Image { get; set; }
 
+        public int SeenCount { get; set; }
+
         public string Url => $"f/{this.Name}";
 
 

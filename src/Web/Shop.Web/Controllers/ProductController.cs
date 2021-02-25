@@ -25,6 +25,7 @@ namespace Shop.Web.Controllers
         public IActionResult ProductByName(string name)
         {
             var product = this.product.GetByName<ProductInputModel>(name);
+            var count = this.product.Count(name);
             return this.View(product);
         }
 
@@ -33,7 +34,6 @@ namespace Shop.Web.Controllers
             var productViewModel = this.product.GetById<ProductInputModel>(id);
             return this.View(productViewModel);
         }
-
 
         public IActionResult MyProducts()
         {

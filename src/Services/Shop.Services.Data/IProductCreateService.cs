@@ -21,5 +21,7 @@ namespace Shop.Services.Data
         IEnumerable<T> GetPromotedProductsById<T>(int id , int itemsPerPage);
 
         IEnumerable<T> GetUserProducts<T>(string userId);
+
+        bool Count(string name);
     }
 }
