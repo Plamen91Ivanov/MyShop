@@ -33,10 +33,13 @@
 .ball:nth-of-type(2) {
 	animation-delay: 0.1s;
 }
-
-.ball:nth-of-type(3) {
-	animation-delay: 0.2s;
+.category-image{
+    width: 50px;
+    height: 50px;
 }
+    .ball:nth-of-type(3) {
+        animation-delay: 0.2s;
+    }
     .categories{
         padding:30px 0 30px 0;
     }
@@ -60,33 +63,50 @@
 }
 </style>
 
-<div class="text-center categories">
+<div class="text-center categories bg-light promo-container">
     <h3>Категории</h3>
-    <div class="row" id="row">
-        @foreach (var product in Model.Products)
-        {
-            <div class="col-3">
-                <a href="/product/@product.Url">
-                    <div class="card shadow p-3 mb-5 bg-white rounded">
-                        @if (product.Image == null)
-                        {
-                            <img class="card-image" src="/Images/NoImages.jpg">
-                        }
-                        else
-                        {
-                            <img class="card-image rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@product.Image">
-                        }
-                        <div class="card-body">
-                            <h5 class="card-title">@product.Name</h5>
-                            <p class="card-text">@product.Description</p>
-                            <p class="card-text">@product.Price $</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        }
+    <div class="row category-items" >
+        <div class="col-2">
+            <a href="#">
+                <img class="category-image" src="~/Images/NoImages.jpg" />
+                <p>Недвижими имоти</p>
+            </a>
+        </div>
+        <div class="col-2">
+            <a href="#">
+                <img class="category-image" src="~/Images/car.png" />
+                <p>Авто</p>
+            </a>
+        </div>
+        <div class="col-2">
+            <a href="#">
+                <img class="category-image" src="~/Images/electronics.jpg" />
+                <p>Електроника</p>
+            </a>
+        </div>
+        <div class="col-2">
+            <a href="#">
+            <img class="category-image" src="~/Images/fashion.jpg"/>
+            <p>Мода</p>
+            </a>
+        </div>
+        <div class="col-2">
+            <a href="#">
+                <img class="category-image" src="~/Images/garden.jpg" />
+                <p>Градина</p>
+            </a>
+        </div>
+        <div class="col-2">
+            <a href="#">
+                <img class="category-image" src="~/Images/more.jpg" />
+                <p>Други</p>
+            </a>
+
+        </div>
+
     </div>
 </div>
+<br />
 <div class="text-center bg-light promo-container">
     <div class="">
         <h3>Обяви</h3>
