@@ -31,8 +31,6 @@ namespace Shop.Web.Controllers
             this.userManager = userManager;
         }
 
-       
-       
         [HttpGet("{id:int}")]
         public async Task<ActionResult<IEnumerable<ProductInputModel>>> AllOrderedByCreatedOnAscending(int id)
         {
