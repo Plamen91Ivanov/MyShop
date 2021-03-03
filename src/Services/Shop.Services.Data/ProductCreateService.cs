@@ -46,8 +46,9 @@ namespace Shop.Services.Data
             return product;
         }
 
-        public async Task<int> CreateAsync(string name, string description, decimal price, string location, string userId, IFormFile image, int brandId)
+        public async Task<int> CreateAsync(string name, string description, decimal price, string location, string userId, IFormFile image, int brandId, string category)
         {
+            int categoryId = 0;
             byte[] destinationImage;
             string[] imagePath;
             var imageName = string.Empty;
@@ -69,21 +70,41 @@ namespace Shop.Services.Data
                 imagePath = imageUri.Split("upload/");
                 imageName = imagePath[1];
             }
+            var test = category;
 
-            Product product = new Product
+            switch (test)
             {
-                UserId = userId,
-                Name = name,
-                Description = description,
-                Price = price,
-                Location = location,
-                Image = imageName,
-                BrandId = brandId,
-            };
+                case "Електроника":
+                    categoryId = 1;
+                    break;
+                case "Авто":
+                    categoryId = 2;
+                    break;
+                default:
+                    categoryId = 0;
+                    break;
+            }
 
-            await this.product.AddAsync(product);
+            if (category == "Електроника")
+            {
+                categoryId = 1;
+            }
+            
+                Product addProduct = new Product
+                {
+                    UserId = userId,
+                    Name = name,
+                    Description = description,
+                    Price = price,
+                    Location = location,
+                    Image = imageName,
+                    BrandId = brandId,
+                    CategoryId = categoryId,
+                };
+            
+            await this.product.AddAsync(addProduct);
             await this.product.SaveChangesAsync();
-            return product.Id;
+            return addProduct.Id;
         }
 
         public async Task<int> CreateImage(ICollection<IFormFile> images, int id)

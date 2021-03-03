@@ -11,7 +11,6 @@ namespace Shop.Services.Data
     public class CategoriesService : ICategoriesService
     {
         private readonly IDeletableEntityRepository<Category> category;
-       
 
         public CategoriesService(IDeletableEntityRepository<Category> category)
         {
