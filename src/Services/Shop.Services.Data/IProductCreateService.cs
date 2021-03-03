@@ -16,6 +16,8 @@ namespace Shop.Services.Data
 
         T GetByName<T>(string name);
 
+        IEnumerable<T> GetByCategory<T>(int id);
+
         IEnumerable<T> GetAllPromotedProducts<T>();
 
         IEnumerable<T> GetPromotedProductsById<T>(int id , int itemsPerPage);

@@ -145,6 +145,12 @@ namespace Shop.Services.Data
             return product;
         }
 
+        public IEnumerable<T> GetByCategory<T>(int id)
+        {
+            var products = this.product.All().Where(x => x.CategoryId == id).To<T>().ToList();
+            return products;
+        }
+
         public IEnumerable<T> GetUserProducts<T>(string userId)
         {
             var products = this.product.All()

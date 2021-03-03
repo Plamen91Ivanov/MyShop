@@ -70,7 +70,7 @@
             services.AddTransient<IBrandService, BrandService>();
             services.AddTransient<IVendorService, VendorService>();
             services.AddTransient<ICardService, CardService>();
-
+            services.AddTransient<ICategoriesService, CategoriesService>();
 
             Account account = new Account(
                      this.configuration["Cloudinary:AppName"],
@@ -119,6 +119,7 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapControllerRoute("category", "category/{name:minlength(3)}", new { controller = "Categories", action = "ByName" });
                         endpoints.MapControllerRoute("product", "product/f/{name:minlength(3)}", new { controller = "product", action = "productByName" });
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");

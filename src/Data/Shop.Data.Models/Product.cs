@@ -31,6 +31,10 @@ namespace Shop.Data.Models
 
         public string Categoty { get; set; }
 
+        public int CategoryId { get; set; }
+
+        public virtual Category Category { get; set; }
+
         public int SeenCount { get; set; }
 
         public virtual ICollection<ImageProduct> Images { get; set; }

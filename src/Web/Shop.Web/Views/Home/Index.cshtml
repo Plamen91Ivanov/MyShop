@@ -5,17 +5,25 @@
 
 <style>
  @@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,600&display=swap');
-  
-.loading {
-	opacity: 0;
-	display: flex;
-	position: fixed;
-    margin-bottom:50px;
-	bottom: 50px;
-	left: 50%;
-	transform: translateX(-50%);
-	transition: opacity .3s ease-in;
-}
+    .card-image{
+        height: 300px;
+    }
+    
+    .blockquote {
+        padding: 20px;
+        box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1), 0 0 0 2px rgb(255,255,255), 0.3em 0.3em 1em rgba(0,0,0,0.3);
+    }
+    .loading {
+
+        opacity: 0;
+        display: flex;
+        position: fixed;
+        margin-bottom: 50px;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: opacity .3s ease-in;
+    }
 
 .loading.show {
 	opacity: 1;
@@ -63,7 +71,7 @@
 }
 </style>
 
-<div class="text-center categories bg-light promo-container">
+<div class="text-center categories bg-light promo-container blockquote">
     <h3>Категории</h3>
     <div class="row category-items" >
         <div class="col-2">
@@ -79,7 +87,7 @@
             </a>
         </div>
         <div class="col-2">
-            <a href="#">
+            <a href="/category/electronics">
                 <img class="category-image" src="~/Images/electronics.jpg" />
                 <p>Електроника</p>
             </a>
@@ -106,7 +114,7 @@
     </div>
 </div>
 <br />
-<div class="text-center bg-light promo-container">
+<div class="text-center bg-light promo-container blockquote">
     <div class="">
         <h4>Обяви</h4>
     </div>
@@ -136,7 +144,6 @@
     </div>
 </div>
 <div class="container" id="container">
-
 </div>
 <div class="loading">
     <div class="ball"></div>
