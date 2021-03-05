@@ -16,7 +16,7 @@
         padding: 5px;
 
     }
-    .card-image{
+    .card-image-vendor{
         width: 130px;
         height: 170px;
     }
@@ -32,11 +32,11 @@
                 <a href="/product/@product.Url">
                     @if (product.Image == null)
                     {
-                        <img class="card-image" src="/Images/NoImages.jpg">
+                        <img class="card-image-vendor" src="/Images/NoImages.jpg">
                     }
                     else
                     {
-                        <img class="card-image rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@product.Image">
+                        <img class="card-image-vendor rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@product.Image">
                     }
                 </a>
             </div>

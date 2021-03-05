@@ -22,10 +22,10 @@ namespace Shop.Web.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult ProductByName(string name)
+        public async Task<IActionResult> ProductByName(string name)
         {
-            var product = this.product.GetByName<ProductInputModel>(name);
-            var count = this.product.Count(name);
+            var product =  this.product.GetByName<ProductInputModel>(name);
+            var count = await this.product.Count(name);
             return this.View(product);
         }
 

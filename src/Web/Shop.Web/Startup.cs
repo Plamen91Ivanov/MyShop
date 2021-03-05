@@ -71,6 +71,7 @@
             services.AddTransient<IVendorService, VendorService>();
             services.AddTransient<ICardService, CardService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<ISearchService, SearchService>();
 
             Account account = new Account(
                      this.configuration["Cloudinary:AppName"],

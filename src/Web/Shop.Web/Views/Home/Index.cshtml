@@ -4,17 +4,43 @@
 @{ this.ViewData["Title"] = "Home Page"; }
 
 <style>
- @@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,600&display=swap');
-    .card-image{
+    @@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,600&display=swap');
+
+    .card-image {
         height: 300px;
     }
-    
+
     .blockquote {
         padding: 20px;
         box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1), 0 0 0 2px rgb(255,255,255), 0.3em 0.3em 1em rgba(0,0,0,0.3);
     }
-    .loading {
 
+    .img-thumbnail {
+        height: 200px;
+    }
+
+    a {
+        color: darkolivegreen;
+    }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+    h5 {
+        color: darkolivegreen;
+    }
+
+    .price-text {
+        font-weight: 500;
+    }
+
+    .card-text {
+        font-size: 13px;
+        color: darkslategray;
+    }
+
+    .loading {
         opacity: 0;
         display: flex;
         position: fixed;
@@ -25,63 +51,98 @@
         transition: opacity .3s ease-in;
     }
 
-.loading.show {
-	opacity: 1;
-}
+        .loading.show {
+            opacity: 1;
+        }
 
-.ball {
-	background-color: #777;
-	border-radius: 50%;
-	margin: 5px;
-	height: 10px;
-	width: 10px;
-	animation: jump .5s ease-in infinite;
-}
+    .ball {
+        background-color: #777;
+        border-radius: 50%;
+        margin: 5px;
+        height: 10px;
+        width: 10px;
+        animation: jump .5s ease-in infinite;
+    }
 
-.ball:nth-of-type(2) {
-	animation-delay: 0.1s;
-}
-.category-image{
-    width: 50px;
-    height: 50px;
-}
+        .ball:nth-of-type(2) {
+            animation-delay: 0.1s;
+        }
+
+    .category-image {
+        width: 50px;
+        height: 50px;
+    }
+
     .ball:nth-of-type(3) {
         animation-delay: 0.2s;
     }
-    .categories{
-        padding:30px 0 30px 0;
+
+    .categories {
+        padding: 30px 0 30px 0;
     }
+
     .promo-container {
         padding-top: 30px;
         padding-bottom: 20px;
     }
- .row{
-     margin-top:30px;
- }
-    
+
+    .row {
+        margin-top: 30px;
+    }
+
 
     @@keyframes jump {
         0%, 100% {
-		transform: translateY(0);
-	}
+            transform: translateY(0);
+        }
 
-	50% {
-		transform: translateY(-10px);
-	}
-}
+        50% {
+            transform: translateY(-10px);
+        }
+    }
 </style>
 
+<section class="p-4 mb-4 d-flex align-items-center flex-column">
+    <div>
+        <form class="form" method="post" asp-controller="search" asp-action="index">
+            <div class="input-group">
+                <div class="form-outline">
+                    <input id="search-input " type="search" id="form1" class="form-control" name="search" />
+                    <label class="form-label" for="form1">Търсене</label>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-mdb-toggle="dropdown"
+                            aria-expanded="false">
+                        Изберете област
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="#">София</a></li>
+                        <li><a class="dropdown-item" href="#">Варна</a></li>
+                        <li><a class="dropdown-item" href="#">Бургас</a></li>
+                        <li><a class="dropdown-item" href="#">Русе</a></li>
+                        <li><a class="dropdown-item" href="#">Пловдив</a></li>
+                    </ul>
+                </div>
+                <button id="search-button" type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+                </form>
+            </div>
+</section>
 <div class="text-center categories bg-light promo-container blockquote">
     <h3>Категории</h3>
-    <div class="row category-items" >
+    <div class="row category-items">
         <div class="col-2">
-            <a href="#">
+            <a href="/category/Homes">
                 <img class="category-image" src="~/Images/NoImages.jpg" />
                 <p>Недвижими имоти</p>
             </a>
         </div>
         <div class="col-2">
-            <a href="#">
+            <a href="/category/Auto">
                 <img class="category-image" src="~/Images/car.png" />
                 <p>Авто</p>
             </a>
@@ -93,54 +154,68 @@
             </a>
         </div>
         <div class="col-2">
-            <a href="#">
-            <img class="category-image" src="~/Images/fashion.jpg"/>
-            <p>Мода</p>
+            <a href="/category/fashion">
+                <img class="category-image" src="~/Images/fashion.jpg" />
+                <p>Мода</p>
             </a>
         </div>
         <div class="col-2">
-            <a href="#">
+            <a href="/category/garden">
                 <img class="category-image" src="~/Images/garden.jpg" />
                 <p>Градина</p>
             </a>
         </div>
         <div class="col-2">
-            <a href="#">
+            <a href="/category/more">
                 <img class="category-image" src="~/Images/more.jpg" />
                 <p>Други</p>
             </a>
         </div>
+    </div>
+</div>
+<br />
 
+<div class="text-center categories bg-light promo-container blockquote">
+    <h3>Най-предпочитани брандове</h3>
+    <div class="row category-items">
+        @foreach (var brand in Model.Brands)
+        {
+            <div class="col-3">
+                <a href="/brand/brand/@brand.Id"><img class="img-thumbnail" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@brand.Logo" /></a>
+                <h5>@brand.Name</h5>
+                <h5>@brand.Description</h5>
+            </div>
+        }
     </div>
 </div>
 <br />
 <div class="text-center bg-light promo-container blockquote">
     <div class="">
-        <h4>Обяви</h4>
+        <h4>Спонсорирани Обяви</h4>
     </div>
     <div class="row" id="row">
         @foreach (var product in Model.Products)
         {
-             <div class="col-3">
-                 <a href="/product/@product.Url">
-                     <div class="card shadow p-3 mb-5 bg-white rounded">
-                         @if (product.Image == null)
-                         {
+            <div class="col-3">
+                <a href="/product/@product.Url">
+                    <div class="card shadow p-3 mb-5 bg-white rounded">
+                        @if (product.Image == null)
+                        {
                             <img class="card-image" src="/Images/NoImages.jpg">
-                         }
-                         else
-                         {
+                        }
+                        else
+                        {
                             <img class="card-image rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@product.Image">
-                         }
-                         <div class="card-body">
-                             <h5 class="card-title">@product.Name</h5>
-                             <p class="card-text">@product.Description</p>
-                             <p class="card-text">@product.Price $</p>
-                         </div>
-                     </div>
-                 </a>
-             </div>
-         }
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text text-left">Гр.@product.Location</p>
+                            <p class="card-text text-left price-text">@product.Price $</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
     </div>
 </div>
 <div class="container" id="container">
@@ -166,7 +241,7 @@
         var test2 = Math.round(scrollHeight);
         if (test1 == test2) {
             // show the loading animation
-                showLoading();
+            showLoading();
         }
     });
 
@@ -176,6 +251,7 @@
         // load more data
         setTimeout(getPost, 3000)
     }
+
 
     async function getPost() {
         //const postResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${getRandomNr()}`);
@@ -204,14 +280,12 @@
             const postElement = document.createElement('div');
             postElement.classList.add('col-3');
 
-                         if (message.image == null)
-                         {
-                                  var image = `<img class="card-image" src="/Images/NoImages.jpg">`
-                         }
-                         else
-                         {
-                             var image = `<img class="card-image rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/${message.image}">`
-                         }
+            if (message.image == null) {
+                var image = `<img class="card-image" src="/Images/NoImages.jpg">`
+            }
+            else {
+                var image = `<img class="card-image rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/${message.image}">`
+            }
 
             postElement.innerHTML = `
                  <a href="/product/${message.url}">
@@ -223,7 +297,7 @@
                          </div>
                      </div>
                  </a>
-	`;
+    `;
             row.appendChild(postElement);
         }
         loading.classList.remove('show');

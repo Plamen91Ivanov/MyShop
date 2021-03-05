@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Services.Data;
 using Shop.Web.ViewModels.Category;
+using Shop.Web.ViewModels.Create;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Shop.Web.Controllers
         public IActionResult ByName(string name)
         {
             var products = this.categories.ProductsByCategory<CategoriesViewModel>(name);
-            products.Products = this.product.GetByCategory<ProductsInCategoryViewModel>(products.Id);
+            products.Products = this.product.GetByCategory<ProductInputModel>(products.Id);
 
             return this.View(products);
         }

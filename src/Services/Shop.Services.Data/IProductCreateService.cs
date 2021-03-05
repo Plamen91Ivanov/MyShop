@@ -14,6 +14,7 @@ namespace Shop.Services.Data
 
         T GetById<T>(int id);
 
+
         T GetByName<T>(string name);
 
         IEnumerable<T> GetByCategory<T>(int id);
@@ -22,8 +23,10 @@ namespace Shop.Services.Data
 
         IEnumerable<T> GetPromotedProductsById<T>(int id , int itemsPerPage);
 
+        IEnumerable<T> MostExpensive<T>(string id);
+
         IEnumerable<T> GetUserProducts<T>(string userId);
 
-        bool Count(string name);
+        Task<bool> Count(string name);
     }
 }

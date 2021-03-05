@@ -70,6 +70,7 @@ namespace Shop.Services.Data
                 imagePath = imageUri.Split("upload/");
                 imageName = imagePath[1];
             }
+
             var test = category;
 
             switch (test)
@@ -80,28 +81,35 @@ namespace Shop.Services.Data
                 case "Авто":
                     categoryId = 2;
                     break;
+                case "Мода":
+                    categoryId = 7;
+                    break;
+                case "Други":
+                    categoryId = 6;
+                    break;
+                case "Градина":
+                    categoryId = 4;
+                    break;
+                case "Недвижими имоти":
+                    categoryId = 3;
+                    break;
                 default:
-                    categoryId = 0;
+                    categoryId = 9;
                     break;
             }
 
-            if (category == "Електроника")
+            Product addProduct = new Product
             {
-                categoryId = 1;
-            }
-            
-                Product addProduct = new Product
-                {
-                    UserId = userId,
-                    Name = name,
-                    Description = description,
-                    Price = price,
-                    Location = location,
-                    Image = imageName,
-                    BrandId = brandId,
-                    CategoryId = categoryId,
-                };
-            
+                UserId = userId,
+                Name = name,
+                Description = description,
+                Price = price,
+                Location = location,
+                Image = imageName,
+                BrandId = categoryId,
+                CategoryId = categoryId,
+            };
+
             await this.product.AddAsync(addProduct);
             await this.product.SaveChangesAsync();
             return addProduct.Id;
@@ -181,12 +189,18 @@ namespace Shop.Services.Data
             return products.To<T>().ToList();
         }
 
-        public bool Count(string name)
+        public async Task<bool> Count(string name)
         {
-            var count = this.product.All().Where(x => x.Name == name).FirstOrDefault();
+            var count =  this.product.All().Where(x => x.Name == name).FirstOrDefault();
             count.SeenCount += 1;
-            this.product.SaveChangesAsync();
+            await this.product.SaveChangesAsync();
             return true;
+        }
+
+        public IEnumerable<T> MostExpensive<T>(string id)
+        {
+            var products = this.product.All().Where(x => x.Name.Contains(id)).OrderBy(x => x.Price).To<T>().ToList();
+            return products;
         }
     }
 }

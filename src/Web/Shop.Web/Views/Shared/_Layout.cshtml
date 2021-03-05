@@ -11,7 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
 
-
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <link href="~/css/mdb.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/product.css" rel="stylesheet" asp-append-version="true" />
@@ -32,33 +36,32 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>*@
                         @if (this.SignInManager.IsSignedIn(this.User))
                         {
-                              <li class="nav-item">
-                                 <a class="nav-link text-dark" asp-area="" asp-controller="Create" asp-action="ProductCreate">Create</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="Create">Create Brand</a>
-                              </li>
-                              <li class="nav-item">
-                                  <div class="cart">
-                                      <a type="button" asp-controller="Vendor" asp-action="Index">
-                                          <i class="material-icons">
-                                              <img class="cart-image" src="~/Images/154fdf2f2759676a96e9aed653082276.png" />
-                                          </i>
-                                          <span class="count-buble">@count.ProductCount(this.UserManager.GetUserId(this.User))</span>
-                                      </a>
-                                  </div>
-                              </li>
-}
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Create" asp-action="ProductCreate">Create</a>
+            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="Create">Create Brand</a>
+                            </li>
+                                            <li class="nav-item">
+                                                <div class="cart">
+                                                    <a type="button" asp-controller="Vendor" asp-action="Index">
+                                                        <i class="material-icons">
+                                                            <img class="cart-image" src="~/Images/154fdf2f2759676a96e9aed653082276.png" />
+                                                        </i>
+                                                        <span class="count-buble">@count.ProductCount(this.UserManager.GetUserId(this.User))</span>
+                                                    </a>
+                                                </div>
+                                            </li>}
                     </ul>
                 </div>
             </div>
@@ -82,6 +85,8 @@
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/js/mdb.min.js"></script>
+    <!-- Custom scripts -->
     @this.RenderSection("Scripts", required: false)
 
 </body>

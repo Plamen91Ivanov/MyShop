@@ -1,4 +1,10 @@
-﻿@model Shop.Web.ViewModels.Create.ProductInputModel
+﻿@using Shop.Common
+@using Shop.Data.Models
+@using Microsoft.AspNetCore.Identity
+@model Shop.Web.ViewModels.Create.ProductInputModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 
 <style>
     body {
@@ -164,10 +170,16 @@
                 <p class="font-weight-bold old-price"></p>
                 <p class="font-weight-bold new-price">@Model.IntegerPrice<sup>@Model.Coins</sup><span>Лв</span></p>
                 <hr />
-                <button type="submit" class="btn btn-lg btn-primary" onclick="addProductToCard(@Model.Id)" data-toggle="modal" data-target="#largeModal">Добави в количката</button>
+                @if (this.SignInManager.IsSignedIn(this.User))
+                {
+                    <button type="submit" class="btn btn-lg btn-primary" onclick="addProductToCard(@Model.Id)" data-toggle="modal" data-target="#largeModal">Добави в количката</button>
+                }
+                else
+                {
+                     <a class="btn btn-lg btn-primary" asp-route-returnUrl="/product/@Model.Url"  asp-area="Identity" asp-page="/Account/Login">Добави в количката</a>
+                }
             </div>
         </div>
-
     </div>
 </div>
 

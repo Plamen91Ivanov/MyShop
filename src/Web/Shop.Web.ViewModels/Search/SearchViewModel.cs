@@ -5,12 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Shop.Web.ViewModels.Category
+namespace Shop.Web.ViewModels.Search
 {
-    public class CategoriesViewModel : IMapFrom<Shop.Data.Models.Category>
+    public class SearchViewModel : IMapFrom<Product>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public IEnumerable<ProductInputModel> Products { get; set; }
     }
 }
