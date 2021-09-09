@@ -348,9 +348,31 @@
         }
     }
 
-    async function sendMessage() {
-        console.log('send');
-        const test = document.getElementById('messageArea').value;
-        const messageText = await fetch(`https://localhost:44319/api/message/${test}`);
+    //async function sendMessage() {
+    //    console.log('send');
+    //    const test = document.getElementById('messageArea').value;
+    //    const messageText = await fetch(`https://localhost:44319/api/message/${test}`);
+    //}
+
+    function sendMessage(userToId) { 
+        const message = document.getElementById('messageArea').value;
+
+        console.log(userToId);
+        // var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+        var json = { message: message, userToId: userToId };
+        console.log(json);
+        $.ajax({
+            url: "/api/message",
+            type: "POST",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log('tuk');
+            //    $("#votesCount").html(data.votesCount);
+            //    console.log(data)
+            //    console.log(data.votesCount)
+            }
+        });
     }
 </script>

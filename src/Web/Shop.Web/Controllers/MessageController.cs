@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shop.Data.Models;
 using Shop.Services.Data;
+using Shop.Web.ViewModels.Message;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,12 @@ namespace Shop.Web.Controllers
             this.messageService = messageService;
         }
 
-        [Route("message/{test}/")]
-        [HttpGet]
-        public async Task<ActionResult> Add(string userFromId, string userToId, string test)
+        [HttpPost]
+        [IgnoreAntiforgeryTokenAttribute]
+        public async Task<ActionResult> Add(MessageInputModel message)
         {
             var userId = await this.userManager.GetUserAsync(this.User);
-            var messageText = await this.messageService.AddMessage(userFromId, userToId, test);
+            var messageText = await this.messageService.AddMessage("b", "b", "b");
             return this.Ok();
         }
     }
