@@ -32,37 +32,42 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <section class="d-flex align-items-center flex-column">
+                    <div>
+                        <form class="form" method="post" asp-controller="search" asp-action="index">
+                            <div class="input-group">
+                                <div class="form-outline">
+                                    <input id="search-input " type="search" id="form1" class="form-control rounded" name="search" />
+                                    <label class="form-label" for="form1">Търсене</label>
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle location-button"
+                                            type="button"
+                                            id="dropdownMenuButton"
+                                            data-mdb-toggle="dropdown"
+                                            aria-expanded="false"
+                                            name="region">
+                                        Изберете област
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item" href="#" onclick="changeButtonText3('София')">София</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="changeButtonText3('Варна')">Варна</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="changeButtonText3('Бургас')">Бургас</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="changeButtonText3('Русе')">Русе</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="changeButtonText3('Пловдив')">Пловдив</a></li>
+                                    </ul>
+                                    <div id="region">
+                                    </div>
+                                </div>
+                                <button id="search-button" type="submit" class="btn btn-primary rounded search-button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>*@
-                        @if (this.SignInManager.IsSignedIn(this.User))
-                        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Create" asp-action="ProductCreate">Create</a>
-            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="Create">Create Brand</a>
-                            </li>
-                                            <li class="nav-item">
-                                                <div class="cart">
-                                                    <a type="button" asp-controller="Vendor" asp-action="Index">
-                                                        <i class="material-icons">
-                                                            <img class="cart-image" src="~/Images/154fdf2f2759676a96e9aed653082276.png" />
-                                                        </i>
-                                                        <span class="count-buble">@count.ProductCount(this.UserManager.GetUserId(this.User))</span>
-                                                    </a>
-                                                </div>
-                                            </li>}
-                    </ul>
                 </div>
             </div>
         </nav>
@@ -72,7 +77,7 @@
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
-    </div>
+    </div>  
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -87,7 +92,9 @@
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     <script src="~/js/mdb.min.js"></script>
     <!-- Custom scripts -->
+    
     @this.RenderSection("Scripts", required: false)
+
 
 </body>
 </html>

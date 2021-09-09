@@ -18,14 +18,14 @@ namespace Shop.Web.Controllers
             this.search = search;
         }
 
-        public IActionResult Index(string search)
+        public IActionResult Index(string search, string region)
         {
-            ViewBag.Search = search;
+            this.ViewBag.Search = search;
+            this.ViewBag.Region = region;
             var result = new SearchViewModel
             {
-                Products = this.search.Search<ProductInputModel>(search),
+                Products = this.search.Search<ProductInputModel>(search, region),
             };
-
             return this.View(result);
         }
     }

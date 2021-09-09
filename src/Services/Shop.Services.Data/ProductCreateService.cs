@@ -53,6 +53,8 @@ namespace Shop.Services.Data
             string[] imagePath;
             var imageName = string.Empty;
 
+            if (image != null)
+            {
             using (var memoryStream = new MemoryStream())
             {
                 await image.CopyToAsync(memoryStream);
@@ -70,10 +72,9 @@ namespace Shop.Services.Data
                 imagePath = imageUri.Split("upload/");
                 imageName = imagePath[1];
             }
+            }
 
-            var test = category;
-
-            switch (test)
+            switch (category)
             {
                 case "Електроника":
                     categoryId = 1;
@@ -105,9 +106,9 @@ namespace Shop.Services.Data
                 Description = description,
                 Price = price,
                 Location = location,
-                Image = imageName,
-                BrandId = categoryId,
                 CategoryId = categoryId,
+                Image = imageName,
+                BrandId = brandId,
             };
 
             await this.product.AddAsync(addProduct);
@@ -139,7 +140,6 @@ namespace Shop.Services.Data
                     var test = result.Uri.AbsoluteUri;
                     imagePath = test.Split("upload/");
                     imageName = imagePath[1];
-
                 }
 
                 var img = new ImageProduct
@@ -191,16 +191,29 @@ namespace Shop.Services.Data
 
         public async Task<bool> Count(string name)
         {
-            var count =  this.product.All().Where(x => x.Name == name).FirstOrDefault();
+            var count = this.product.All().Where(x => x.Name == name).FirstOrDefault();
             count.SeenCount += 1;
             await this.product.SaveChangesAsync();
             return true;
         }
 
-        public IEnumerable<T> MostExpensive<T>(string id)
+        public IEnumerable<T> MostExpensive<T>(string id,string region, int number)
         {
-            var products = this.product.All().Where(x => x.Name.Contains(id)).OrderBy(x => x.Price).To<T>().ToList();
-            return products;
+            if (number == 1)
+            {
+                var products = this.product.All().Where(x => x.Name.Contains(id) && x.Location == region).OrderByDescending(x => x.Price).To<T>().ToList();
+                return products;
+            }
+            else if(number == 2)
+            {
+                var products = this.product.All().Where(x => x.Name.Contains(id) && x.Location == region).OrderBy(x => x.Price).To<T>().ToList();
+                return products;
+            }
+            else
+            {
+                var products = this.product.All().Where(x => x.Name.Contains(id) && x.Location == region).OrderBy(x => x.CreatedOn).To<T>().ToList();
+                return products;
+            }
         }
     }
 }

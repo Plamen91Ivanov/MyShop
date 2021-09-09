@@ -1,0 +1,121 @@
+﻿<style>
+    .dropdown-toggle {
+        width: 100% !important;
+    }
+    ul li{
+        width:100%;
+    }
+    .dropdown-menu {
+        width:100%;
+    }
+</style>
+<div class="row">
+    <div class="col-6">
+        <button type="button" class="btn btn-primary" onclick="createProductForm()">Добавете продукт</button>
+    </div>
+    <div class="col-6">
+        <button type="button" class="btn btn-primary" onclick="createBrandForm()">Добавете бранд</button>
+    </div>
+</div>
+<br />
+<div id="create-product-form"  style="display:none">
+    <div class="row text-center">
+        <br />
+        <div class="col-4">
+            <form method="post" enctype="multipart/form-data" asp-controller="Create" asp-action="Create">
+                <div class="form-outline mb-4">
+                    <input type="text" id="form6Example3" class="form-control" name="Name" />
+                    <label class="form-label" for="form6Example3">Име на продукта</label>
+                </div> 
+                <div class="form-outline mb-4">
+                    <input type="number" id="form6Example4" class="form-control" name="Price" />
+                    <label class="form-label" for="form6Example4">Цена</label>
+                </div>
+                <br />
+                <div class="dropdown text-left">
+                    <button class="btn btn-primary dropdown-toggle"
+                            type="button"
+                            id="dropDownCategory"
+                            data-mdb-toggle="dropdown"
+                            aria-expanded="false">
+                        Изберете категория
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropDownCategory">
+                        <li><a class="dropdown-item" href="#" onclick="changeCategoryText('Електроника')">Електроника</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="changeCategoryText('Мода')">Мода</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="changeCategoryText('За градината')">За градината</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="changeCategoryText('Имоти')">Имоти</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="changeCategoryText('Авто')">Авто</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="changeCategoryText('Други')">Други</a></li>
+                    </ul>
+                    <input id="categoryInput" type="hidden" name="category"/>
+                </div>
+                <br />
+                <!-- Message input -->
+                <div class="form-outline mb-4">
+                    <textarea class="form-control" id="form6Example7" rows="4" name="Description"></textarea>
+                    <label class="form-label" for="form6Example7">Описание</label>
+                </div>
+                <label class="form-label font-weight-bolder" for="customFile">Главна снимка</label>
+                <input type="file" class="form-control" id="customFile" name="image" />
+
+                <label class="form-label font-weight-bolder" for="customFile">Снимки</label>
+                <input type="file" class="form-control" id="customFile" name="images" multiple />
+                <br />
+                <button type="submit" class="btn btn-primary btn-block mb-4 ">Публикувай</button>
+            </form>
+        </div>
+    </div>
+</div> 
+<div id="create-brand-form" style="display:none">
+    <div class="row text-center">
+        <br />
+        <div class="col-4">
+            <form method="post" enctype="multipart/form-data" asp-controller="Brand" asp-action="Create">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <!-- Text input -->
+                <div class="form-outline mb-4">
+                    <input type="text" id="form6Example3" class="form-control" name="Name" />
+                    <label class="form-label" for="form6Example3">Име на бранда</label>
+                </div>
+                <!-- Message input -->
+                <div class="form-outline mb-4">
+                    <textarea class="form-control" id="form6Example7" rows="4" name="Description"></textarea>
+                    <label class="form-label" for="form6Example7">Описание</label>
+                </div>
+                <label class="form-label font-weight-bolder" for="customFile">Лого</label>
+                <input type="file" class="form-control" id="customFile" name="Logo" />
+                <br />
+                <button type="submit" class="btn btn-primary btn-block mb-4 ">Добави</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function createProductForm() {
+        const brandForm = document.getElementById('create-brand-form');
+        const productForm = document.getElementById('create-product-form');
+        brandForm.style.display = "none";
+        if (productForm.style.display === "none") {
+            productForm.style.display = "block"
+        }
+
+    }
+    function createBrandForm() {
+        const brandForm = document.getElementById('create-brand-form');
+        const productForm = document.getElementById('create-product-form');
+        productForm.style.display = "none";
+        if (brandForm.style.display === "none") {
+            brandForm.style.display = "block"
+        }
+    }
+    function changeCategoryText(text) {
+        dropDownCategory.innerHTML = text;
+        categoryInput.value = text;
+    }
+    function changeRegionText(text) {
+        dropDownRegion.innerHTML = text;
+    }
+</script>

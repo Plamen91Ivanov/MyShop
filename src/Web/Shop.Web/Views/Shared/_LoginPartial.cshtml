@@ -3,35 +3,67 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject Shop.Services.Data.CardService count
+
+<style>
+    .cart-item{
+        margin-left:15px;
+    }
+</style>
 
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
-<li class="nav-item">
-    <a class="nav-link text-dark btn-success rounded" asp-area="" asp-controller="Product" asp-action="MyProducts">My Products</a>
-</li>
+<div class="dropdown">
+    <button class="btn btn-success dropdown-toggle"
+            type="button"
+            id="dropdownMenuButtonProfile"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+            name="region">
+        @(this.User.Identity.Name)!
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Create" asp-action="CreateForm">Създаване</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark font-italic rounded font-weight-bolder" asp-area="" asp-controller="Product" asp-action="MyProducts">Продукти</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark dropdown-item font-italic font-weight-bolder" asp-controller="Profile" asp-action="Index">Профил  </a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+                <button type="submit" class="nav-link btn btn-link text-dark font-weight-bolder">Изход</button>
+            </form>
+        </li>
+    </ul>
+</div>
+                <li class="nav-item cart-item">
+                    <div class="cart">
+                        <a type="button" asp-controller="Vendor" asp-action="Index">
+                            <i class="material-icons">
+                                <img class="cart-image" src="~/Images/154fdf2f2759676a96e9aed653082276.png" />
+                            </i>
+                            <span class="count-buble">@count.ProductCount(this.UserManager.GetUserId(this.User))</span>
+                        </a>
+                    </div>
+                </li> if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                {
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-controller="Profile" asp-action="Index">Hello @(this.User.Identity.Name)!</a>
+                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
                 </li>
- if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                {
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
-</li>
  }
+
+        }
+        else
+        {
 <li class="nav-item">
-    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-    </form>
-</li>
- }
-else
-{
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Регистрация</a>
 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Вход</a>
                 </li>
 }
 </ul>

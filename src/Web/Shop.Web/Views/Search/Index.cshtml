@@ -58,115 +58,89 @@
             .ball:nth-of-type(3) {
                 animation-delay: 0.2s;
             }
+        .location-button {
+            width: 170px !important;
+        }
     </style>
-
-
-    <section class="p-4 mb-4 d-flex align-items-center flex-column">
-        <div>
-            <form class="form" method="post" asp-controller="search" asp-action="index">
-                <div class="input-group">
-                    <div class="form-outline">
-                        <input id="search-input " type="search" id="form1" class="form-control" name="search" />
-                        <label class="form-label" for="form1">Търсене</label>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-mdb-toggle="dropdown"
-                                aria-expanded="false">
-                            Изберете област
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">София</a></li>
-                            <li><a class="dropdown-item" href="#">Варна</a></li>
-                            <li><a class="dropdown-item" href="#">Бургас</a></li>
-                            <li><a class="dropdown-item" href="#">Русе</a></li>
-                            <li><a class="dropdown-item" href="#">Пловдив</a></li>
-                        </ul>
-                    </div>
-                    <button id="search-button" type="submit" class="btn btn-primary">
-                        <i class="fas fa-search"></i>
-                    </button>
-            </form>
-        </div>
-    </section>
-    <div class="row">
-        <div class="col-3">
-
-        </div>
-        <div class="col-3">
+ 
+    <div class="row text-right">
+        <div class="">
             <form class="form-order-gallery">
-                <label>Сортирай по:</label>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle"
+                    <span>Сортирай по:</span>
+                        <button class="btn btn-primary dropdown-toggle"
                             type="button"
-                            id="dropdownMenuButton"
+                            id="dropdownMenuButton1"
                             data-mdb-toggle="dropdown"
                             aria-expanded="false">
+                        Най-нови
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" onclick="best('@ViewBag.Search')" href="#">Най-нови</a></li>
-                        <li><a class="dropdown-item" href="#">Най-скъпи</a></li>
-                        <li><a class="dropdown-item" href="#">Най-евтини</a></li>
+                        <li><a class="dropdown-item" onclick="sortProduct('@ViewBag.Search-@ViewBag.Region-3','Най-нови')" href="#">Най-нови</a></li>
+                        <li><a class="dropdown-item" onclick="sortProduct('@ViewBag.Search-@ViewBag.Region-1','Най-скъпи')" href="#">Най-скъпи</a></li>
+                        <li><a class="dropdown-item" onclick="sortProduct('@ViewBag.Search-@ViewBag.Region-2','Най-евтини')" href="#">Най-евтини</a></li>
                     </ul>
-                    <select class="form-control border border-primary btn btn-primary dropdown-toggle" placeholder=".input-lg " id="specialty" name="specialty">
-                        <option>Специалност</option>
-                        <option>Ортопедия и травматология</option>
-                        <option>Ортопедия и травматология</option>
-                    </select>
                 </div>
             </form>
         </div>
     </div>
-
+<br />
 
     <div class="text-center bg-light promo-container blockquote">
         <div class="">
         </div>
         <div class="row" id="row">
-            @foreach (var product in Model.Products)
+
+            @if (@Model.Products.Count() < 1)
             {
-                <div class="col-3">
-                    <a href="/product/@product.Url">
-                        <div class="card shadow p-3 mb-5 bg-white rounded">
-                            @if (product.Image == null)
-                            {
-                                <img class="card-image" src="/Images/NoImages.jpg">
-                            }
-                            else
-                            {
-                                <img class="card-image rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@product.Image">
-                            }
-                            <div class="card-body">
-                                <h5 class="card-title">@product.Name</h5>
-                                <p class="card-text text-left">Гр.@product.Location</p>
-                                <p class="card-text text-left price-text">@product.Price $</p>
+                <h5>Няма намерени резултати</h5>
+            }
+            else
+            {
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-3">
+                        <a href="/product/@product.Url">
+                            <div class="card shadow p-3 mb-5 bg-white rounded">
+                                @if (product.Image == null)
+                                {
+                                    <img class="card-image" src="/Images/NoImages.jpg">
+                                }
+                                else
+                                {
+                                    <img class="card-image rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/@product.Image">
+                                }
+                                <div class="card-body">
+                                    <h5 class="card-title">@product.Name</h5>
+                                    <p class="card-text text-left">Гр.@product.Location</p>
+                                    <p class="card-text text-left price-text">@product.Price $</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                }
             }
         </div>
     </div>
 
 <script>
     var number = 1;
-    async function best(product) {
-        console.log(number);
-        const postResponse = await fetch(`https://localhost:44319/api/apisearch/${product}`);
-        number++;
-        console.log("id number : " + number);
+    async function sortProduct(search, sortType) {
+        console.log(search);
+        var button = document.getElementById('dropdownMenuButton1');
+       
+        button.innerHTML = sortType;
+        const postResponse = await fetch(`https://localhost:44319/api/apisearch/${search}`);
         const postData = await postResponse.json();
 
         const data = postData;
 
-        console.log(data);
         addDataToDOM(data);
     }
 
-    function addDataToDOM(data) {
 
+    function addDataToDOM(data) {
+        row.innerHTML = '';
         for (let message of data) {
             const postElement = document.createElement('div');
             postElement.classList.add('col-3');
@@ -183,7 +157,7 @@
                      <div class="card shadow p-3 mb-5 bg-white rounded">
                          ${image}
                          <div class="card-body">
-                             <p class="card-text">${message.description}</p>
+                             <p class="card-text">${message.name}</p>
                              <p class="card-text">${message.price} $</p>
                          </div>
                      </div>

@@ -17,9 +17,9 @@ namespace Shop.Services.Data
             this.product = product;
         }
 
-        public IEnumerable<T> Search<T>(string search)
+        public IEnumerable<T> Search<T>(string search, string region)
         {
-            var result = this.product.All().Where(x => x.Name.Contains(search)).To<T>().ToList();
+            var result = this.product.All().Where(x => x.Name.Contains(search) && x.Location == region).To<T>().ToList();
             return result;
         }
     }

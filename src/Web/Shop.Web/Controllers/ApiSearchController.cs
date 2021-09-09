@@ -29,18 +29,21 @@ namespace Shop.Web.Controllers
             this.userManager = userManager;
         }
 
-        [HttpGet("{id::regex(^[[a-zA-Z]])}")]
+        [HttpGet("{id::regex(^[[a-zA-ZА-Яа-я0-9]])}")]
         public async Task<ActionResult<IEnumerable<ProductInputModel>>> MostExpensive(string id)
         {
+            var search = id.Split('-')[0];
+            var region = id.Split('-')[1];
+            var sortType = int.Parse(id.Split('-')[2]);
+
             var products = new ProductsInputModel()
             {
-                Products = this.product.MostExpensive<ProductInputModel>(id),
+                Products = this.product.MostExpensive<ProductInputModel>(search,region, sortType),
             };
 
             //  var test = this.product.GetPromotedProductsById<ProductInputModel>(id, ItemsPerPage).ToList();
 
             return products.Products.ToList();
-
         }
     }
 }

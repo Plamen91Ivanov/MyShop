@@ -38,7 +38,7 @@ namespace Shop.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateAsync(ProductInputModel productInputModel, IFormFile image, ICollection<IFormFile> images, int brandId, string category)
+        public async Task<IActionResult> CreateAsync(ProductInputModel productInputModel, IFormFile image, ICollection<IFormFile> images, int brandId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
@@ -51,13 +51,15 @@ namespace Shop.Web.Controllers
                     user.Id,
                     image,
                     brandId,
-                    category
+                    productInputModel.Category
                     );
-
+            if (images != null)
+            {
             var img = await this.product.CreateImage(images, createProduct);
            // await CloudinaryExtension.UploadAsync(this.cloudinary, images);
+            }
 
-            return this.RedirectToAction("Product", new {id = createProduct});
+            return this.RedirectToAction("MyProducts", "Product");
         }
 
         public IActionResult Product(int id)
@@ -66,13 +68,17 @@ namespace Shop.Web.Controllers
             return this.View(productViewModel);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Upload(ICollection<IFormFile> files)
         {
             await CloudinaryExtension.UploadAsync(this.cloudinary, files);
 
             return Redirect("/");
+        }
+
+        public IActionResult CreateForm()
+        {
+            return this.View();
         }
     }
 }

@@ -100,38 +100,11 @@
             transform: translateY(-10px);
         }
     }
+    .location-button {
+        width: 170px !important;
+    }
 </style>
-
-<section class="p-4 mb-4 d-flex align-items-center flex-column">
-    <div>
-        <form class="form" method="post" asp-controller="search" asp-action="index">
-            <div class="input-group">
-                <div class="form-outline">
-                    <input id="search-input " type="search" id="form1" class="form-control" name="search" />
-                    <label class="form-label" for="form1">Търсене</label>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle"
-                            type="button"
-                            id="dropdownMenuButton"
-                            data-mdb-toggle="dropdown"
-                            aria-expanded="false">
-                        Изберете област
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">София</a></li>
-                        <li><a class="dropdown-item" href="#">Варна</a></li>
-                        <li><a class="dropdown-item" href="#">Бургас</a></li>
-                        <li><a class="dropdown-item" href="#">Русе</a></li>
-                        <li><a class="dropdown-item" href="#">Пловдив</a></li>
-                    </ul>
-                </div>
-                <button id="search-button" type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-                </form>
-            </div>
-</section>
+ 
 <div class="text-center categories bg-light promo-container blockquote">
     <h3>Категории</h3>
     <div class="row category-items">
@@ -286,7 +259,6 @@
             else {
                 var image = `<img class="card-image rounded" src="http://res.cloudinary.com/ds1ne4hps/image/upload/${message.image}">`
             }
-
             postElement.innerHTML = `
                  <a href="/product/${message.url}">
                      <div class="card shadow p-3 mb-5 bg-white rounded">
@@ -302,5 +274,12 @@
         }
         loading.classList.remove('show');
     }
+     
+    const searchButton = document.getElementById('search-button');
+    const searchInput = document.getElementById('search-input');
+    searchButton.addEventListener('click', () => {
+        const inputValue = searchInput.value;
+        alert(inputValue);
+    });
 </script>
 

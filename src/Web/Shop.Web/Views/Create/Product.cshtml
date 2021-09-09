@@ -1,12 +1,14 @@
 ﻿@model Shop.Web.ViewModels.Create.ProductInputModel
 
-<h1>@Model.Id</h1>
-<h1>@Model.Name</h1>
-<h1>@Model.UserUserName</h1>
-<h1>@Model.Description</h1>
+    <div class="successfullyAddProductMessage">
+        <h1>You have successfully added a product</h1>
+    </div>
+    <p>@Model.Id</p>
+    <p>Product name: @Model.Name</p>
+    <p>Product description @Model.Description</p>
 
-@foreach (var item in Model.Images)
-{ 
-    <img src="http://res.cloudinary.com/ds1ne4hps/image/upload/@item.Name" />
-    <hr />
-}
+    @foreach (var item in Model.Images)
+    {
+        <img src="http://res.cloudinary.com/ds1ne4hps/image/upload/@item.Name" />
+        <hr />
+    }

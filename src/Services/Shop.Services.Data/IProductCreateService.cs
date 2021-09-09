@@ -14,16 +14,15 @@ namespace Shop.Services.Data
 
         T GetById<T>(int id);
 
-
         T GetByName<T>(string name);
 
         IEnumerable<T> GetByCategory<T>(int id);
 
         IEnumerable<T> GetAllPromotedProducts<T>();
 
-        IEnumerable<T> GetPromotedProductsById<T>(int id , int itemsPerPage);
+        IEnumerable<T> GetPromotedProductsById<T>(int id, int itemsPerPage);
 
-        IEnumerable<T> MostExpensive<T>(string id);
+        IEnumerable<T> MostExpensive<T>(string id, string region, int number);
 
         IEnumerable<T> GetUserProducts<T>(string userId);
 
