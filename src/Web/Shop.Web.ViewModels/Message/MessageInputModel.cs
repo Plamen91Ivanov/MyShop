@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Shop.Services.Mapping;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Shop.Web.ViewModels.Message
 {
-    public class MessageInputModel
+    public class MessageInputModel : IMapFrom<Shop.Data.Models.Message>
     {
-        public string Message { get; set; }
+        public string Text { get; set; }
 
         public string UserToId { get; set; }
     }

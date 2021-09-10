@@ -1,7 +1,9 @@
 ﻿using Shop.Data.Common.Repositories;
 using Shop.Data.Models;
+using Shop.Services.Mapping;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +30,13 @@ namespace Shop.Services.Data
             await this.messages.AddAsync(messageText);
             await this.messages.SaveChangesAsync();
             return 1;
+        }
+
+        public IEnumerable<T> GetMessageById<T>(string userId)
+        {
+            var userMassage = this.messages.All().Where(x => x.UserToId == userId).To<T>().ToList();
+
+            return userMassage;
         }
     }
 }

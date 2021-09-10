@@ -8,5 +8,8 @@ namespace Shop.Services.Data
     public interface IMessageService
     {
         Task<int> AddMessage(string userFromId, string userToId, string text);
+
+        IEnumerable<T> GetMessageById<T>(string userId);
+
     }
 }

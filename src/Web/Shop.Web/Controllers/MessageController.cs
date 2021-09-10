@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Data.Common.Repositories;
 using Shop.Data.Models;
 using Shop.Services.Data;
 using Shop.Web.ViewModels.Message;
@@ -10,27 +11,24 @@ using System.Threading.Tasks;
 
 namespace Shop.Web.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class MessageController : ControllerBase
+    public class MessageController : BaseController
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IMessageService messageService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public MessageController(UserManager<ApplicationUser> userManager,
-                                 IMessageService messageService)
-        {
-            this.userManager = userManager;
+        public MessageController(IMessageService messageService,
+                                 UserManager<ApplicationUser> userManager) {
+
             this.messageService = messageService;
+            this.userManager = userManager;
         }
 
-        [HttpPost]
-        [IgnoreAntiforgeryTokenAttribute]
-        public async Task<ActionResult> Add(MessageInputModel message)
+        public async Task<ActionResult> Message()
         {
-            var userFromId = await this.userManager.GetUserAsync(this.User);
-            var messageText = await this.messageService.AddMessage(userFromId.Id, message.UserToId, message.Message);
-            return this.Ok();
+            var user = await this.userManager.GetUserAsync(this.User);
+            var text = new Messages();
+            text.Text = this.messageService.GetMessageById<MessageInputModel>(user.Id);
+            return this.View(text);
         }
     }
 }

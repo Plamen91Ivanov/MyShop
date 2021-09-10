@@ -40,6 +40,7 @@ namespace Shop.Web.Controllers
             var user = this.userManager.GetUserAsync(this.User).GetAwaiter().GetResult();
             var productsViewModel = new ProductsInputModel();
             productsViewModel.Products = this.product.GetUserProducts<ProductInputModel>(user.Id);
+
             return this.View(productsViewModel);
         }
     }

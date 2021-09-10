@@ -362,7 +362,7 @@
         var json = { message: message, userToId: userToId };
         console.log(json);
         $.ajax({
-            url: "/api/message",
+            url: "/api/apimessage",
             type: "POST",
             data: JSON.stringify(json),
             contentType: "application/json; charset=utf-8",
