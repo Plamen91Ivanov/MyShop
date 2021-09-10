@@ -29,6 +29,8 @@ namespace Shop.Web.ViewModels.Create
 
         public string UserUserName { get; set; }
 
+        public string UserId { get; set; }
+
         public string Image { get; set; }
 
         public int SeenCount { get; set; }

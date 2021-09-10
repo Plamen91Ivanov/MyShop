@@ -28,8 +28,8 @@ namespace Shop.Web.Controllers
         [IgnoreAntiforgeryTokenAttribute]
         public async Task<ActionResult> Add(MessageInputModel message)
         {
-            var userId = await this.userManager.GetUserAsync(this.User);
-            var messageText = await this.messageService.AddMessage("b", "b", "b");
+            var userFromId = await this.userManager.GetUserAsync(this.User);
+            var messageText = await this.messageService.AddMessage(userFromId.Id, message.UserToId, message.Message);
             return this.Ok();
         }
     }

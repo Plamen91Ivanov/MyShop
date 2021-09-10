@@ -202,10 +202,11 @@
                         Message
                     </a>
                 }
-                <div id="mesasgeForm" style="display:none">
-                    <textarea id="messageArea"></textarea>
-                    <button  type="submit" class="btn btn-lg btn-primary"  onclick="sendMessage()">Send</button>
-                </div>
+            <div id="mesasgeForm" style="display:none">
+                <textarea id="messageArea"></textarea>
+                <input id="hiddenInput" type="hidden" value="@Model.UserId" />
+                <button type="submit" class="btn btn-lg btn-primary" onclick="sendMessage()">Send</button>
+            </div>
             </div>
         </div>
     </div>
@@ -271,7 +272,6 @@
                         <br />
                         <a type="button" asp-controller="Vendor" asp-action="Index" class="btn btn-primary">виж количката</a>
                     </div>
-
                 </div>
 
             </div>
@@ -356,7 +356,7 @@
 
     function sendMessage(userToId) { 
         const message = document.getElementById('messageArea').value;
-
+        var userToId = document.getElementById('hiddenInput').value;
         console.log(userToId);
         // var token = $("#votesForm input[name=__RequestVerificationToken]").val();
         var json = { message: message, userToId: userToId };
@@ -375,4 +375,5 @@
             }
         });
     }
+     
 </script>
