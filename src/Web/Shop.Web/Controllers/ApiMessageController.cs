@@ -29,6 +29,7 @@ namespace Shop.Web.Controllers
         public async Task<ActionResult> Add(MessageInputModel message)
         {
             var userFromId = await this.userManager.GetUserAsync(this.User);
+            var test = userFromId.UserName;
             var messageText = await this.messageService.AddMessage(userFromId.Id, message.UserToId, message.Text);
             return this.Ok();
         }

@@ -7,7 +7,9 @@ namespace Shop.Data.Models
 {
     public class Message : BaseDeletableModel<int>
     {
-        public string UserFromId { get; set; }
+        public string UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
 
         public string UserToId { get; set; }
 

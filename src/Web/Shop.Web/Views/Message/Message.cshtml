@@ -1,11 +1,66 @@
 ﻿@model Shop.Web.ViewModels.Message.Messages
 
+<style>
+    .messageCard {
+        display: inline-block;
+        margin: 10px;
+        padding:10px;
+    }
+</style>
+ 
 @foreach (var item in Model.Text)
 {
-    <p>@item.Text</p>
+<div class="messageCard">
+    <div class="messageCard">
+        @{
+            var test = @item.UserUserName.Split('@');
+            <p>@test[0]</p>
+        }
+    </div>
+    <div class="messageCard">
+        <p>send you a message : @item.Text</p>
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary" onclick="messageForm()">Reply</button>
+    <div id="mesasgeForm" style="display:none">
+        <textarea id="messageArea"></textarea>
+        <input id="hiddenInput" type="hidden" value="@item.UserId" />
+        <button type="submit" class="btn btn-sm btn-primary" onclick="sendMessage()">Send</button>
+    </div>
+    <hr />
+</div>
 }
 
-@foreach (var item in Model.Text)
-{
-    <p>@item.Text</p>
-}
+<script>
+
+    function messageForm() {
+        const messageForm = document.getElementById('mesasgeForm');
+        if (messageForm.style.display === 'inline-block') {
+            messageForm.style.display = 'none';
+        }
+        else {
+            messageForm.style.display = 'inline-block'
+        }
+    }
+     
+    function sendMessage(userToId) {
+        const text = document.getElementById('messageArea').value;
+        var userToId = document.getElementById('hiddenInput').value;
+        // var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+        var json = { text: text, userToId: userToId };
+        console.log(json);
+        $.ajax({
+            url: "/api/apimessage",
+            type: "POST",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log('tuk');
+                //    $("#votesCount").html(data.votesCount);
+                //    console.log(data)
+                //    console.log(data.votesCount)
+            }
+        });
+    }
+
+</script>

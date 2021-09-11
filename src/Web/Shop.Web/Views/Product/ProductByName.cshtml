@@ -355,11 +355,10 @@
     //}
 
     function sendMessage(userToId) { 
-        const message = document.getElementById('messageArea').value;
+        const text = document.getElementById('messageArea').value;
         var userToId = document.getElementById('hiddenInput').value;
-        console.log(userToId);
         // var token = $("#votesForm input[name=__RequestVerificationToken]").val();
-        var json = { message: message, userToId: userToId };
+        var json = { text: text, userToId: userToId };
         console.log(json);
         $.ajax({
             url: "/api/apimessage",

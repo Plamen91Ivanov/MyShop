@@ -22,7 +22,7 @@ namespace Shop.Services.Data
         {
             Message messageText = new Message
             {
-                UserFromId = userFromId,
+                UserId = userFromId,
                 UserToId = userToId,
                 Text = text,
             };
@@ -35,7 +35,6 @@ namespace Shop.Services.Data
         public IEnumerable<T> GetMessageById<T>(string userId)
         {
             var userMassage = this.messages.All().Where(x => x.UserToId == userId).To<T>().ToList();
-
             return userMassage;
         }
     }
