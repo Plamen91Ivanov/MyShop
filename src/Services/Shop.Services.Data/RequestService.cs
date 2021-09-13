@@ -1,5 +1,6 @@
 ﻿using Shop.Data.Common.Repositories;
 using Shop.Data.Models;
+using Shop.Services.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,5 +38,21 @@ namespace Shop.Services.Data
             var count = this.relationship.All().Where(x => x.UserSecondId == userId && x.Type == 1).Count();
             return count;
         }
+
+        public IEnumerable<T> FriendFromRequest<T>(string userFromId, string userId)
+        {
+            var users = this.relationship.All().Where(x => x.UserFirstId == userFromId && x.UserSecondId == userId).To<T>().ToList();
+            return users;
+        }
+
+
+
+
+
+        //public IEnumerable<string> GetAllFriendRequests(string userId)
+        //{
+        //    var friendRequest = this.relationship.All().Where(x => x.UserSecondId == userId && x.Type == 1).ToList();
+        //    return friendRequestl;
+        //}
     }
 }

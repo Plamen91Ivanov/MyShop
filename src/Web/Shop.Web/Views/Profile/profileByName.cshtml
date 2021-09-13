@@ -3,7 +3,7 @@
 <h1>@Model.UserName</h1>
 <input id="hiddenInput" type="hidden" value="@Model.Id" />
 <button id="friendButton" onclick="sendFriendRequest()">Add friend</button>
-<button>Message</button>
+<button onclick="sendFriendRequest1()">Message</button>
 
 
 <script>
@@ -19,7 +19,7 @@
         var json = { userToId: userToId, type: type };
         console.log(json);
         $.ajax({
-            url: "/api/apirequest",
+            url: "/api/apirequest/Add",
             type: "POST",
             data: JSON.stringify(json),
             contentType: "application/json; charset=utf-8",
@@ -34,5 +34,25 @@
 
         friendRequestButton.innerText = "Cancel friend request";
         friendRequestButton.style.backgroundColor = 'red';
+    }
+
+    function sendFriendRequest1() {
+        //  const text = document.getElementById('messageArea').value;
+        var textt = document.getElementById('hiddenInput').value;
+        var json = { textt: textt };
+        console.log(json);
+        $.ajax({
+            url: "/api/apirequest/Addd",
+            type: "POST",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log('tuk');
+                //    $("#votesCount").html(data.votesCount);
+                //    console.log(data)
+                //    console.log(data.votesCount)
+            }
+        });
     }
 </script>

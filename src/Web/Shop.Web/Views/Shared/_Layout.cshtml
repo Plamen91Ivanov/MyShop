@@ -46,7 +46,6 @@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    +8 /
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <section class="d-flex align-items-center flex-column">
@@ -95,26 +94,28 @@
                     </div>
                 </form>
                 <div class="notification">
-                    <a href="#" id="myBtn">
+                    <a href="#" id="myBtn" onclick="getFriendRequest()">
                         <span class="notificationCount">@requestCount.RequestCount(this.UserManager.GetUserId(this.User))</span>
+                        <input id="hiddenInput" type="hidden" value="@this.UserManager.GetUserId(this.User)" />
                     </a>
-                </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    </div>
+                    @*try to make api to show all friend request but doesnt work*@
+                    @*<div class="notification">
                     <partial name="_ModalPartial" />
+            </div>*@
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                    </div>
+
                 </div>
-            </div>
-        </nav>
+</nav>
     </header>
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
-
             @this.RenderBody()
         </main>
-    </div>  
+    </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -129,7 +130,7 @@
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     <script src="~/js/mdb.min.js"></script>
     <!-- Custom scripts -->
-    
     @this.RenderSection("Scripts", required: false)
+
 </body>
 </html>

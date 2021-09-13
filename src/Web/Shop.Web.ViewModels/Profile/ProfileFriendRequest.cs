@@ -4,12 +4,8 @@ using System.Text;
 
 namespace Shop.Web.ViewModels.Profile
 {
-    public class FriendRequest
+    public class ProfileFriendRequest
     {
-        public string UserToId { get; set; }
-
-        public int Type { get; set; }
-
         public string UserId { get; set; }
     }
 }

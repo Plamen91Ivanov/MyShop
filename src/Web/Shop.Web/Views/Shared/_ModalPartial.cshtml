@@ -1,85 +1,100 @@
-﻿    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            padding-left:75%;
-            padding-top:4%;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
+﻿@using Shop.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject Shop.Services.Data.RequestService requestCount
+@inject UserManager<ApplicationUser> UserManager
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-        /* Modal Content */
-        .modal-content {
-            display:flex;
-            align-items:end;
-            background-color: #fefefe;
-            padding: 10px;
-            border: 1px solid #888;
+    .modal {
+        display: none; /* Hidden by default */
+        padding-left: 75%;
+        padding-top: 4%;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-content {
+        display: flex;
+        align-items: end;
+        background-color: #fefefe;
+        padding: 10px;
+        border: 1px solid #888;
+    }
+
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
+</style>
 
-        /* The Close Button */
-        .close {
-            color: #aaaaaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-            .close:hover,
-            .close:focus {
-                color: #000;
-                text-decoration: none;
-                cursor: pointer;
-            }
-    </style>
-    <!-- Trigger/Open The Modal -->
-
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
-            <p>Some text in the Modal..</p>
-            <p>Some text in the Modal..</p>
-            <p>Some text in the Modal..</p>
-            <p>Some text in the Modal..</p>
-            <p>Some text in the Modal..</p>
-            <p>Some text in the Modal..</p>
-            <p>Some text in the Modal..</p>
-        </div>
+<a href="#" id="myBtn" onclick="getFriendRequest()">
+    <span class="notificationCount">@requestCount.RequestCount(this.UserManager.GetUserId(this.User))</span>
+    <input id="hiddenInput" type="hidden" value="@this.UserManager.GetUserId(this.User)"/>
+</a>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>UserNama</p>
+        <button onclick="getFriendRequest()">Accept</button>
+        <button>Decline</button>
     </div>
-    <script>
-// Get the modal
-var modal = document.getElementById("myModal");
+</div>
+<script>
+    var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+    var btn = document.getElementById("myBtn");
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+    var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
+    btn.onclick = function () {
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+        modal.style.display = "block";
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-    </script>
+            //  const text = document.getElementById('messageArea').value;
+            var userToId = document.getElementById('hiddenInput').value;
+            //var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+            var json = { userToId: userToId,};
+            console.log(json);
+            $.ajax({
+                url: "/api/apirequest/ShowFriendRequest",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    console.log('tuk');
+                    //    $("#votesCount").html(data.votesCount);
+                    //    console.log(data)
+                    //    console.log(data.votesCount)
+                }
+            });
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    function getFriendRequest() {
+        console.log('12');
+    }
+</script>
