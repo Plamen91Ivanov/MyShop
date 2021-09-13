@@ -74,6 +74,7 @@
             services.AddTransient<ISearchService, SearchService>();
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<IRequestService, RequestService>();
 
             Account account = new Account(
                      this.configuration["Cloudinary:AppName"],

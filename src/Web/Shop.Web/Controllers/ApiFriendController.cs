@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Shop.Data.Models;
 using Shop.Services.Data;
 using Shop.Web.ViewModels.Message;
-using Shop.Web.ViewModels.Profile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,24 +12,24 @@ namespace Shop.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiRequestController : ControllerBase
+    public class ApiFriendController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IRequestService requestService;
+        private readonly IMessageService messageService;
 
-        public ApiRequestController(UserManager<ApplicationUser> userManager,
-                                 IRequestService requestService)
+        public ApiFriendController(UserManager<ApplicationUser> userManager,
+                                 IMessageService messageService)
         {
             this.userManager = userManager;
-            this.requestService = requestService;
+            this.messageService = messageService;
         }
 
         [HttpPost]
         [IgnoreAntiforgeryTokenAttribute]
-        public async Task<ActionResult> Add(ProfileViewModel message)
+        public async Task<ActionResult> Add(MessageInputModel message)
         {
             var getUser = await this.userManager.GetUserAsync(this.User);
-            var request = await this.requestService.SendFriendRequest(getUser.Id, message.Id);
+            var messageText = await this.messageService.AddMessage(getUser.Id, message.UserToId, message.Text);
             return this.Ok();
         }
     }

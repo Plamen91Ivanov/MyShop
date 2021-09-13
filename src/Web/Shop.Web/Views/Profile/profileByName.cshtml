@@ -1,19 +1,20 @@
 ﻿@model Shop.Web.ViewModels.Profile.ProfileViewModel
 
 <h1>@Model.UserName</h1>
+<input id="hiddenInput" type="hidden" value="@Model.Id" />
 <button onclick="sendFriendRequest()">Add friend</button>
 <button>Message</button>
 
 
 <script>
-    function sendFriendRequest(userToId) {
-        const text = document.getElementById('messageArea').value;
+    function sendFriendRequest() {
+        //  const text = document.getElementById('messageArea').value;
         var userToId = document.getElementById('hiddenInput').value;
         // var token = $("#votesForm input[name=__RequestVerificationToken]").val();
-        var json = { text: text, userToId: userToId };
+        var json = { id: userToId};
         console.log(json);
         $.ajax({
-            url: "/api/apimessage",
+            url: "/api/apirequest",
             type: "POST",
             data: JSON.stringify(json),
             contentType: "application/json; charset=utf-8",
@@ -26,5 +27,4 @@
             }
         });
     }
-
 </script>
