@@ -10,5 +10,7 @@ namespace Shop.Web.ViewModels.Search
     public class SearchViewModel : IMapFrom<Product>
     {
         public IEnumerable<ProductInputModel> Products { get; set; }
+
+        public IEnumerable<SearchUserViewModel> Users { get; set; }
     }
 }

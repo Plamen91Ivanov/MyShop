@@ -13,8 +13,8 @@
 <div class="messageCard">
     <div class="messageCard">
         @{
-            var test = @item.UserUserName.Split('@');
-            <p>@test[0]</p>
+            var splitUserName = @item.UserUserName.Split('@');
+            <p>@splitUserName[0]</p>
         }
     </div>
     <div class="messageCard">

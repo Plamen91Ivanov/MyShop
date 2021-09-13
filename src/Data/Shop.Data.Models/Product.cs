@@ -27,7 +27,7 @@ namespace Shop.Data.Models
 
         public string Image { get; set; }
 
-        public int? BrandId { get; set; }
+        public int BrandId { get; set; }
 
         public int CategoryId { get; set; }
 

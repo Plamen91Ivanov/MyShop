@@ -28,5 +28,14 @@ namespace Shop.Web.Controllers
             };
             return this.View(result);
         }
+
+        public IActionResult SearchUser(string name)
+        {
+            var result = new SearchViewModel
+            {
+                Users = this.search.SearchUser<SearchUserViewModel>(name),
+            };
+            return this.View(result);
+        }
     }
 }

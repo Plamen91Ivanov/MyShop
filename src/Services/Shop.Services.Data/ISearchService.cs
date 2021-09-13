@@ -7,5 +7,7 @@ namespace Shop.Services.Data
     public interface ISearchService
     {
         IEnumerable<T> Search<T>(string search, string region);
+
+        IEnumerable<T> SearchUser<T>(string name);
     }
 }

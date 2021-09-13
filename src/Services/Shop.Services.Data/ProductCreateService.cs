@@ -99,6 +99,7 @@ namespace Shop.Services.Data
                     break;
             }
 
+            //fix fk problem with brainId !
             Product addProduct = new Product
             {
                 UserId = userId,
@@ -108,7 +109,7 @@ namespace Shop.Services.Data
                 Location = location,
                 CategoryId = categoryId,
                 Image = imageName,
-                BrandId = brandId,
+                BrandId = 3,
             };
 
             await this.product.AddAsync(addProduct);

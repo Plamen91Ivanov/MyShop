@@ -73,6 +73,7 @@
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<ISearchService, SearchService>();
             services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IProfileService, ProfileService>();
 
             Account account = new Account(
                      this.configuration["Cloudinary:AppName"],
@@ -121,6 +122,7 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapControllerRoute("profile", "profile/{name:minlength(3)}", new { controller = "profile", action = "profileByName" });
                         endpoints.MapControllerRoute("category", "category/{name:minlength(3)}", new { controller = "Categories", action = "ByName" });
                         endpoints.MapControllerRoute("product", "product/f/{name:minlength(3)}", new { controller = "product", action = "productByName" });
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");

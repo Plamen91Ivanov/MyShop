@@ -10,6 +10,5 @@ namespace Shop.Services.Data
         Task<int> AddMessage(string userFromId, string userToId, string text);
 
         IEnumerable<T> GetMessageById<T>(string userId);
-
     }
 }

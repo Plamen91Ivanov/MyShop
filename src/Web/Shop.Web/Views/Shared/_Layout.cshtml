@@ -66,7 +66,17 @@
                         </form>
                     </div>
                 </section>
-                <button btn btn-primary>Find User</button>
+                <form class="form" method="post" asp-controller="search" asp-action="searchuser">
+                    <div class="input-group">
+                        <div class="form-outline">
+                            <input id="search-input" type="search" class="form-control rounded" name="name" />
+                            <label class="form-label" for="search-input">Търсене</label>
+                        </div>
+                        <button id="search-button" type="submit" class="btn btn-primary rounded search-button">
+                            find user
+                        </button>
+                    </div>
+                </form>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                 </div>

@@ -1,0 +1,12 @@
+﻿@model Shop.Web.ViewModels.Search.SearchViewModel
+
+@foreach (var item in Model.Users)
+{
+<div>
+    @{var splitUserName = @item.UserName.Split('@');
+    }
+    <a href="/profile/@item.Url">
+         @splitUserName[0] 
+    </a>
+</div>
+}
