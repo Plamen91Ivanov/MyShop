@@ -12,10 +12,10 @@
         var userToId = document.getElementById('hiddenInput').value;
         var friendRequestButton = document.getElementById('friendButton');
         var type = 0;
-        if (buttonText.innerText == "Add friend") {
+        if (friendRequestButton.innerText == "Add friend") {
             type = 1;
         }
-         var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+        var token = $("#votesForm input[name=__RequestVerificationToken]").val();
         var json = { userToId: userToId, type: type };
         console.log(json);
         $.ajax({

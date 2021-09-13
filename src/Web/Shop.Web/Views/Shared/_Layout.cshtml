@@ -4,7 +4,23 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject Shop.Services.Data.CardService count
+@inject Shop.Services.Data.RequestService requestCount
 <!DOCTYPE html>
+<style>
+    .notificationCount {
+        color: red;
+        margin:7px;
+    }
+    .notification {
+        border-radius: 13px;
+        height: 30px;
+        width: 30px;
+        font-size: 20px;
+        margin-left: 15px;
+        border-style: solid;
+        border-color: forestgreen;
+    }
+</style>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -30,6 +46,7 @@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
+                    +8 /
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <section class="d-flex align-items-center flex-column">
@@ -77,8 +94,16 @@
                         </button>
                     </div>
                 </form>
+                <div class="notification">
+                    <a href="#" id="myBtn">
+                        <span class="notificationCount">@requestCount.RequestCount(this.UserManager.GetUserId(this.User))</span>
+                    </a>
+                </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
+                </div>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_ModalPartial" />
                 </div>
             </div>
         </nav>
@@ -86,6 +111,7 @@
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
+
             @this.RenderBody()
         </main>
     </div>  
@@ -105,7 +131,5 @@
     <!-- Custom scripts -->
     
     @this.RenderSection("Scripts", required: false)
-
-
 </body>
 </html>

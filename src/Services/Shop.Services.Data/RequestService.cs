@@ -2,6 +2,7 @@
 using Shop.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,12 @@ namespace Shop.Services.Data
             await this.relationship.SaveChangesAsync();
 
             return 1;
+        }
+
+        public int RequestCount(string userId)
+        {
+            var count = this.relationship.All().Where(x => x.UserSecondId == userId && x.Type == 1).Count();
+            return count;
         }
     }
 }
