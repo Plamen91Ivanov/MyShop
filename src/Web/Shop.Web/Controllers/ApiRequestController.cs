@@ -27,10 +27,10 @@ namespace Shop.Web.Controllers
 
         [HttpPost]
         [IgnoreAntiforgeryTokenAttribute]
-        public async Task<ActionResult> Add(ProfileViewModel message)
+        public async Task<ActionResult> Add(FriendRequest friendRequest)
         {
             var getUser = await this.userManager.GetUserAsync(this.User);
-            var request = await this.requestService.SendFriendRequest(getUser.Id, message.Id);
+            var request = await this.requestService.SendFriendRequest(getUser.Id, friendRequest.UserToId);
             return this.Ok();
         }
     }

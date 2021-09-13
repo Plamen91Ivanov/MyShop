@@ -2,7 +2,7 @@
 
 <h1>@Model.UserName</h1>
 <input id="hiddenInput" type="hidden" value="@Model.Id" />
-<button onclick="sendFriendRequest()">Add friend</button>
+<button id="friendButton" onclick="sendFriendRequest()">Add friend</button>
 <button>Message</button>
 
 
@@ -10,8 +10,13 @@
     function sendFriendRequest() {
         //  const text = document.getElementById('messageArea').value;
         var userToId = document.getElementById('hiddenInput').value;
-        // var token = $("#votesForm input[name=__RequestVerificationToken]").val();
-        var json = { id: userToId};
+        var friendRequestButton = document.getElementById('friendButton');
+        var type = 0;
+        if (buttonText.innerText == "Add friend") {
+            type = 1;
+        }
+         var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+        var json = { userToId: userToId, type: type };
         console.log(json);
         $.ajax({
             url: "/api/apirequest",
@@ -26,5 +31,8 @@
                 //    console.log(data.votesCount)
             }
         });
+
+        friendRequestButton.innerText = "Cancel friend request";
+        friendRequestButton.style.backgroundColor = 'red';
     }
 </script>
