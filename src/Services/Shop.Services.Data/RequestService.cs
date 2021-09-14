@@ -22,7 +22,7 @@ namespace Shop.Services.Data
         {
             Relationship relationship = new Relationship
             {
-                UserFirstId = userId,
+                UserId = userId,
                 UserSecondId = requestedUser,
                 Type = 1,
             };
@@ -39,9 +39,9 @@ namespace Shop.Services.Data
             return count;
         }
 
-        public IEnumerable<T> FriendFromRequest<T>(string userFromId, string userId)
+        public IEnumerable<T> FriendFromRequest<T>(string userId)
         {
-            var users = this.relationship.All().Where(x => x.UserFirstId == userFromId && x.UserSecondId == userId).To<T>().ToList();
+            var users = this.relationship.All().Where(x => x.UserSecondId == userId && x.Type == 1).To<T>().ToList();
             return users;
         }
 

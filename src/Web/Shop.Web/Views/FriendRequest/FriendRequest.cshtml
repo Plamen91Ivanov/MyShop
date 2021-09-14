@@ -1,0 +1,66 @@
+﻿@model Shop.Web.ViewModels.Profile.ProfilesFriendRequest
+
+<h1>Friend requests</h1>
+@foreach (var item in Model.ProfileFriendRequests)
+{
+    <div class="row">
+        <div class="col-1">
+            @item.UserName
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <div class="col-6">
+                    <button onclick="Accept()">Accept</button>
+
+                </div>
+                <div class="col-6">
+                    <button onclick="Decline()">Decline</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+}
+
+
+<script>
+    function Accept() {
+        var type = 2;
+        // var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+        var json = { type: type};
+        console.log(json);
+        $.ajax({
+            url: "/api/apirequest/accept",
+            type: "POST",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log('tuk');
+                //    $("#votesCount").html(data.votesCount);
+                //    console.log(data)
+                //    console.log(data.votesCount)
+            }
+        });
+    }
+    function Decline() {
+        const text = document.getElementById('messageArea').value;
+        var userToId = document.getElementById('hiddenInput').value;
+        // var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+        var json = { text: text, userToId: userToId };
+        console.log(json);
+        $.ajax({
+            url: "/api/apimessage",
+            type: "POST",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log('tuk');
+                //    $("#votesCount").html(data.votesCount);
+                //    console.log(data)
+                //    console.log(data.votesCount)
+            }
+        });
+    }
+</script>

@@ -38,12 +38,36 @@ namespace Shop.Web.Controllers
         [HttpPost]
         [IgnoreAntiforgeryTokenAttribute]
         [Route("[action]")]
-        public async Task<ActionResult> Addd(MessagesInputModel friendRequest)
+        public async Task<ActionResult> Accept(FriendRequest friendRequest)
         {
+
+            var textt = "test";
             var getUser = await this.userManager.GetUserAsync(this.User);
-            var request = await this.requestService.SendFriendRequest(getUser.Id, friendRequest.Textt);
+            var request = await this.requestService.SendFriendRequest(getUser.Id, textt);
             return this.Ok();
         }
+
+        //[HttpPost]
+        //[IgnoreAntiforgeryTokenAttribute]
+        //[Route("[action]")]
+        //public async Task<ActionResult> Decline(FriendRequest friendRequest)
+        //{
+        //    var getUser = await this.userManager.GetUserAsync(this.User);
+        //    var request = await this.requestService.SendFriendRequest(getUser.Id, friendRequest.Textt);
+        //    return this.Ok();
+        //}
+
+        //test action
+
+        //[HttpPost]
+        //[IgnoreAntiforgeryTokenAttribute]
+        //[Route("[action]")]
+        //public async Task<ActionResult> Addd(MessagesInputModel friendRequest)
+        //{
+        //    var getUser = await this.userManager.GetUserAsync(this.User);
+        //    var request = await this.requestService.SendFriendRequest(getUser.Id, friendRequest.Textt);
+        //    return this.Ok();
+        //}
 
 
         // I want to take all requested users and show it in modal form !!! with ajax but i cant return taken information from db

@@ -7,7 +7,9 @@ namespace Shop.Data.Models
 {
     public class Relationship : BaseDeletableModel<int>
     {
-        public string UserFirstId { get; set; }
+        public string UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
 
         public string UserSecondId { get; set; }
 

@@ -6,6 +6,6 @@ namespace Shop.Web.ViewModels.Profile
 {
     public class ProfilesFriendRequest
     {
-        public IEnumerable<ProfileFriendRequest> profileFriendRequests { get; set; }
+        public IEnumerable<ProfileFriendRequest> ProfileFriendRequests { get; set; }
     }
 }

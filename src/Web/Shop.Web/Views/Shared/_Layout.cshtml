@@ -94,15 +94,14 @@
                     </div>
                 </form>
                 <div class="notification">
-                    <a href="#" id="myBtn" onclick="getFriendRequest()">
+                    <a id="myBtn" asp-controller="friendRequest" asp-action="friendrequest">
                         <span class="notificationCount">@requestCount.RequestCount(this.UserManager.GetUserId(this.User))</span>
-                        <input id="hiddenInput" type="hidden" value="@this.UserManager.GetUserId(this.User)" />
                     </a>
                     </div>
                     @*try to make api to show all friend request but doesnt work*@
                     @*<div class="notification">
                     <partial name="_ModalPartial" />
-            </div>*@
+                    </div>*@
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <partial name="_LoginPartial" />
                     </div>

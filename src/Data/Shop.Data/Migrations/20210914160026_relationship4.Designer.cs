@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.Data;
 
 namespace Shop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210914160026_relationship4")]
+    partial class relationship4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -647,8 +649,8 @@ namespace Shop.Data.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("UserFirstId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserSecondId")
                         .HasColumnType("nvarchar(max)");
@@ -656,8 +658,6 @@ namespace Shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Relationships");
                 });
@@ -828,13 +828,6 @@ namespace Shop.Data.Migrations
 
                     b.HasOne("Shop.Data.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Shop.Data.Models.Relationship", b =>
-                {
-                    b.HasOne("Shop.Data.Models.ApplicationUser", "User")
-                        .WithMany("Relationships")
                         .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
