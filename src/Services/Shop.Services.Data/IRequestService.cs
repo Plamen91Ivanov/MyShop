@@ -8,7 +8,8 @@ namespace Shop.Services.Data
     public interface IRequestService
     {
         Task<int> SendFriendRequest(string userId, string requestedUser);
-        Task<int> AcceptFriendRequest(string userId, string requestedUser, string userFromId);
+
+        Task<int> AcceptFriendRequest(string userId, string userFromId);
 
         IEnumerable<T> FriendFromRequest<T>(string userId);
     }

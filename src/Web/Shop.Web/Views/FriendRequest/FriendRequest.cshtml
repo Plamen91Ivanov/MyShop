@@ -6,6 +6,7 @@
     <div class="row">
         <div class="col-1">
             @item.UserName
+            <input id="hiddenInput" type="hidden" value="@item.UserId"/>
         </div>
         <div class="col-4">
             <div class="row">
@@ -25,9 +26,11 @@
 
 <script>
     function Accept() {
+        var userId = document.getElementById('hiddenInput').value;
+        console.log(userId);
         var type = 2;
         // var token = $("#votesForm input[name=__RequestVerificationToken]").val();
-        var json = { type: type};
+        var json = { type: type, UserId: userId};
         console.log(json);
         $.ajax({
             url: "/api/apirequest/accept",

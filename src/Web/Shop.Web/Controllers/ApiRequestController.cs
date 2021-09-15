@@ -41,9 +41,8 @@ namespace Shop.Web.Controllers
         public async Task<ActionResult> Accept(FriendRequest friendRequest)
         {
 
-            var textt = "test";
             var getUser = await this.userManager.GetUserAsync(this.User);
-            var request = await this.requestService.SendFriendRequest(getUser.Id, textt);
+            var request = await this.requestService.AcceptFriendRequest(getUser.Id, friendRequest.UserId);
             return this.Ok();
         }
 

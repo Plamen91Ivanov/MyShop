@@ -45,6 +45,15 @@ namespace Shop.Services.Data
             return users;
         }
 
+        public async Task<int> AcceptFriendRequest(string userId, string userFromId)
+        {
+            var accept = this.relationship.All().Where(x => x.UserId == userFromId && x.UserSecondId == userId).FirstOrDefault();
+            accept.Type = 2;
+
+            await this.relationship.SaveChangesAsync();
+            return accept.Type;
+         }
+
 
 
 
