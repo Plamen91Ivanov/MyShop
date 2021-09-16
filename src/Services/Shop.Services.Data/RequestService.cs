@@ -52,9 +52,7 @@ namespace Shop.Services.Data
 
             await this.relationship.SaveChangesAsync();
             return accept.Type;
-         }
-
-
+        }
 
 
 
